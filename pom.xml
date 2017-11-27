@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<url>http://maven.apache.org</url>
+	
+	<artifactId>gh_boot_tulip</artifactId>
+	<version>1.5.5.RELEASE</version>
+	<name>gh_tulip</name>
+	
+	<parent>
+		<groupId>com.guohuai</groupId>
+		<artifactId>common.basic.parent</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</parent>
+	
+	<properties>
+		<!-- 项目启动指定的启动类 -->
+		<start-class>com.guohuai.GhTulipBootApplication</start-class>
+		<servlet.version>3.1.0</servlet.version>
+		<asm.version>5.0.3</asm.version>
+		<cglib.version>3.1</cglib.version>
+		<zookeeper.version>3.4.6</zookeeper.version>
+		<java.version>1.8</java.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+
+
+		<dependency>
+			<groupId>com.cloopen</groupId>
+			<artifactId>CCPREST</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.3.1.Final</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-ci</artifactId>
+			<version>6.4.0.Final</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-templates</artifactId>
+			<version>6.4.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>UTF-8</encoding>
+					<!-- skip compiler test source -->
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+   				<groupId>org.apache.maven.plugins</groupId>
+   				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*.properties</exclude>
+						<exclude>**/*.xml</exclude>
+						<exclude>com/guohuai/GhTulipBootApplication.class</exclude>
+					</excludes>
+				</configuration>
+   			</plugin>
+		</plugins>
+	</build>
+
+</project>
