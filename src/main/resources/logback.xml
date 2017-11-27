@@ -67,7 +67,7 @@
     </logger>
 	
 	
-	<logger name="com.guohuai" level="DEBUG" additivity="false">
+	<logger name="com.dkm" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

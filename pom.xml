@@ -5,19 +5,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<url>http://maven.apache.org</url>
 	
-	<artifactId>gh_boot_tulip</artifactId>
-	<version>1.5.5.RELEASE</version>
-	<name>gh_tulip</name>
+	<artifactId>game_helper</artifactId>
+	<version>1.0.0.RELEASE</version>
+	<name>game_helper</name>
 	
 	<parent>
-		<groupId>com.guohuai</groupId>
+		<groupId>com.dkm</groupId>
 		<artifactId>common.basic.parent</artifactId>
 		<version>1.0.0.RELEASE</version>
 	</parent>
 	
 	<properties>
 		<!-- 项目启动指定的启动类 -->
-		<start-class>com.guohuai.GhTulipBootApplication</start-class>
+		<start-class>com.dkm.GhTulipBootApplication</start-class>
 		<servlet.version>3.1.0</servlet.version>
 		<asm.version>5.0.3</asm.version>
 		<cglib.version>3.1</cglib.version>
@@ -75,9 +75,17 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layout>ZIP</layout>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -96,7 +104,7 @@
 					<excludes>
 						<exclude>**/*.properties</exclude>
 						<exclude>**/*.xml</exclude>
-						<exclude>com/guohuai/GhTulipBootApplication.class</exclude>
+						<exclude>com/dkm/GhTulipBootApplication.class</exclude>
 					</excludes>
 				</configuration>
    			</plugin>
