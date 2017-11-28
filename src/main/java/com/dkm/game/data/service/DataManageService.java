@@ -13,7 +13,6 @@ public class DataManageService {
     @Autowired
     GameLibraryRepository gameLibraryRepository;
 
-
     public void save(GameLibrary gameLibrary){
 
         gameLibraryRepository.saveAndFlush(gameLibrary);
@@ -25,7 +24,6 @@ public class DataManageService {
     }
 
     public void print(){
-
 
         List<GameLibrary> gameLibraries = gameLibraryRepository.findByName("test");
         System.out.println(gameLibraries.size());
