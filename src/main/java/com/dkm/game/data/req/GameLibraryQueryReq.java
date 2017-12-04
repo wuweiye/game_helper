@@ -1,4 +1,4 @@
-package com.dkm.game.data.controller;
+package com.dkm.game.data.req;
 
 
 import lombok.EqualsAndHashCode;

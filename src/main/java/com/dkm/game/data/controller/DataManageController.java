@@ -3,9 +3,10 @@ package com.dkm.game.data.controller;
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.req.GameLibraryQueryReq;
+import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.service.DataManageService;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.game.data.service.LabelLibraryService;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,8 +31,7 @@ public class DataManageController extends BaseController {
     @Autowired
     DataManageService dataManageService;
 
-    @Autowired
-    LabelLibraryService labelLibraryService;
+
 
 
     @RequestMapping("/add")
@@ -80,9 +79,4 @@ public class DataManageController extends BaseController {
 
 
 
-    @RequestMapping("/test")
-    public String test(){
-        labelLibraryService.save();
-        return "------";
-    }
 }

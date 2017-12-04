@@ -2,8 +2,8 @@ package com.dkm.game.data.service;
 
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.game.data.controller.GameLibraryQueryReq;
-import com.dkm.game.data.controller.GameLibraryReq;
+import com.dkm.game.data.req.GameLibraryQueryReq;
+import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.dao.GameLibraryRepository;
 import com.dkm.game.data.entity.GameLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class DataManageService {
