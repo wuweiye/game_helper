@@ -3,12 +3,15 @@ package com.dkm.game.data.controller;
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
+import com.dkm.game.data.entity.GameLabelEntity;
 import com.dkm.game.data.entity.GameLibrary;
 import com.dkm.game.data.entity.LabelLibraryEntity;
+import com.dkm.game.data.req.GameLabelReq;
 import com.dkm.game.data.req.GameLibraryQueryReq;
 import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.req.LabelLibraryReq;
 import com.dkm.game.data.service.LabelLibraryService;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
@@ -25,12 +28,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+
+/**
+ * 标签管理
+ */
 @RequestMapping(value = "/game/label/manage", produces = "application/json;charset=utf-8")
 @RestController
 public class LabelManageController extends BaseController{
 
     @Autowired
     LabelLibraryService labelLibraryService;
+
+
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody
@@ -67,5 +76,46 @@ public class LabelManageController extends BaseController{
 
         return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
     }
+
+
+
+    @RequestMapping("/game/add")
+    @ResponseBody
+    public ResponseEntity<BaseResp> addGameLabel(@Valid GameLabelReq req){
+        String operator = super.getLoginUser();
+        BaseResp rep = this.labelLibraryService.addGameLabel(req, operator);
+
+        return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/game/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<BaseResp> updateGameLabel(@Valid GameLabelReq req) {
+        String operator = super.getLoginUser();
+        BaseResp rep = this.labelLibraryService.addGameLabel(req, operator);
+
+        return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/game/query", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<PageResp<GameLabelReq>> queryGameLabel(HttpServletRequest request,
+                                                           @And({@Spec(params = "id", path = "id", spec = Equal.class),
+                                                                   @Spec(params = "gid",path="gid",spec = Equal.class),
+                                                                   @Spec(params = "lid",path="lid",spec = Equal.class),
+                                                                   @Spec(params = "status", path = "status", spec = In.class)})
+                                                                   Specification<GameLabelEntity> spec,
+                                                           @RequestParam int page,
+                                                           @RequestParam int rows) {
+
+        Pageable pageable = new PageRequest(page - 1, rows, new Sort(new Sort.Order(Sort.Direction.DESC, "createTime")));
+
+        PageResp<GameLabelReq> rep = this.labelLibraryService.gameLabelQuery(spec, pageable);
+
+        return new ResponseEntity<PageResp<GameLabelReq>>(rep, HttpStatus.OK);
+    }
+
+
 
 }

@@ -34,6 +34,7 @@ public class DataManageController extends BaseController {
 
 
 
+
     @RequestMapping("/add")
     @ResponseBody
     public ResponseEntity<BaseResp> add(@Valid GameLibraryReq req){
@@ -53,12 +54,6 @@ public class DataManageController extends BaseController {
     }
 
 
-
-
-    @RequestMapping("/print")
-    public void print(){
-        dataManageService.print();
-    }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody

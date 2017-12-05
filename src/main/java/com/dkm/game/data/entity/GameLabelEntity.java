@@ -20,12 +20,14 @@ public class GameLabelEntity{
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid.hex")
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid")
-    private String gid;
+    private String id;
 
     /**
      * LibelLibrary 主键
      */
     private String lid;
+
+    private String gid;
 
     private boolean status;
 

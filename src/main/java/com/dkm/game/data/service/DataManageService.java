@@ -1,5 +1,6 @@
 package com.dkm.game.data.service;
 
+import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.game.data.req.GameLibraryQueryReq;
@@ -31,17 +32,10 @@ public class DataManageService {
         GameLibrary gameLibrary1 = gameLibraryRepository.findOne(gameLibrary.getGId());
     }
 
-    public void print(){
-
-        /*List<GameLibrary> gameLibraries = gameLibraryRepository.findByName("test");
-        System.out.println(gameLibraries.size());*/
-
-    }
 
     public PageResp<GameLibraryQueryReq> gameLibraryQuery(Specification<GameLibrary> spec, Pageable pageable) {
 
         Page<GameLibrary> gameLibraries = this.gameLibraryRepository.findAll(spec, pageable);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         PageResp<GameLibraryQueryReq> pagesRep = new PageResp<GameLibraryQueryReq>();
         for(GameLibrary gl : gameLibraries){
@@ -50,7 +44,7 @@ public class DataManageService {
             req.setGId(gl.getGId());
             req.setName(gl.getName());
             req.setStatus(gl.isStatus());
-            req.setUpdateTime(simpleDateFormat.format(gl.getUpdateTime()));
+            req.setUpdateTime(Constants.wholeDateFormat.format(gl.getUpdateTime()));
             pagesRep.getRows().add(req);
         }
 

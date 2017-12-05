@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface GameLabelRepository extends JpaRepository<GameLabelEntity, String> ,JpaSpecificationExecutor<GameLabelEntity> {
 
 
-   /* public GameLibrary findByName(String name);*/
+    public GameLabelEntity findByGidAndLid(String gid,String lid);
 }
