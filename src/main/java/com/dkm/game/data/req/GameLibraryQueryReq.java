@@ -13,7 +13,7 @@ public class GameLibraryQueryReq {
     private  String gId,name,updateTime;
 
     private boolean status;
-    
+
     private Timestamp approveTime, releaseTime;
 
 }
