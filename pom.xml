@@ -17,7 +17,7 @@
 	
 	<properties>
 		<!-- 项目启动指定的启动类 -->
-		<start-class>com.dkm.GhTulipBootApplication</start-class>
+		<start-class>com.dkm.Application</start-class>
 		<servlet.version>3.1.0</servlet.version>
 		<asm.version>5.0.3</asm.version>
 		<cglib.version>3.1</cglib.version>

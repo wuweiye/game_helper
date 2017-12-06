@@ -1,5 +1,6 @@
-package com.dkm.game.data.entity;
+package com.dkm.game.message.entity;
 
+import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,14 +24,30 @@ public class GameWordsEntity {
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid")
     private String id;
 
+    private String gid;
 
     @Length(max = 500)
     private String content;
 
+    /**
+     * 是否显示
+     */
     private int isShow;
 
-    private String status;
+    /**
+     * 被赞总数
+     */
+    private int goodNum = 0;
 
+    /**
+     * 回复总数
+     */
+    private int replyNum = 0;
+
+    /**
+     * 状态
+     */
+    private  String status = GameEnum.Status.VALID.getValue();
 
     private Date updateTime = new Date();
     private Date createTime = new Date();

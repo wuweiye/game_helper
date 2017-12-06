@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @EnableConfigurationProperties
 //@ServletComponentScan
-public class GhTulipBootApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GhTulipBootApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
