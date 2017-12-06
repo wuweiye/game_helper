@@ -2,7 +2,9 @@ package com.dkm.game.data.controller;
 
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
+import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.req.GameAssessUpdateReq;
 import com.dkm.game.data.req.GameLibraryQueryReq;
 import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.service.DataManageService;
@@ -69,6 +71,15 @@ public class DataManageController extends BaseController {
         PageResp<GameLibraryQueryReq> rep = this.dataManageService.gameLibraryQuery(spec, pageable);
 
         return new ResponseEntity<PageResp<GameLibraryQueryReq>>(rep, HttpStatus.OK);
+    }
+
+
+
+    public  ResponseEntity<BaseResp> updateStar(GameAssessUpdateReq req){
+        String operator = super.getLoginUser();
+        BaseResp rep = this.dataManageService.updateStar(req, operator);
+
+        return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
     }
 
 

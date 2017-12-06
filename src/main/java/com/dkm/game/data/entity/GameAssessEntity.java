@@ -29,9 +29,24 @@ public class GameAssessEntity {
     private int fourStarNum = 0;
     private int fiveStarNum = 0;
 
+    private String status;
     private Date updateTime = new Date();
     private Date createTime = new Date();
     private String createBy = "0";
     private String updateBy = "0";
+
+
+
+
+
+    public int getTotal(){
+
+        return  this.oneStarNum + this.twoStarNum + this.thereStarNum + this.fourStarNum + this.fiveStarNum;
+    }
+
+    public int getScale(int num){
+
+        return num/getTotal() *100;
+    }
 
 }

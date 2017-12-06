@@ -20,4 +20,9 @@ public class GameLibraryReq {
 
     private String status;
 
+    /**
+     * 资料添加
+     */
+    private String content;
+
 }

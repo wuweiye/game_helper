@@ -10,9 +10,9 @@ import java.sql.Timestamp;
 @EqualsAndHashCode(callSuper = false)
 public class GameLibraryQueryReq {
 
-    private  String gId,name,updateTime;
+    private  String gId,name,updateTime,content;
 
-    private boolean status;
+    private String status;
 
     private Timestamp approveTime, releaseTime;
 

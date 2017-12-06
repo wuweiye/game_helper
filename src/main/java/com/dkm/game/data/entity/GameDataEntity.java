@@ -30,7 +30,8 @@ public class GameDataEntity {
     @Length(max = 300)
     private String content;
 
-    private boolean status;
+    private String status;
+
 
     private Date updateTime = new Date();
     private Date createTime = new Date();
