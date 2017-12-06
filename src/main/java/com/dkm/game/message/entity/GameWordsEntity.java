@@ -26,13 +26,15 @@ public class GameWordsEntity {
 
     private String gid;
 
+    private String uid;
+
     @Length(max = 500)
     private String content;
 
     /**
      * 是否显示
      */
-    private int isShow;
+    private int isShow = 1;
 
     /**
      * 被赞总数

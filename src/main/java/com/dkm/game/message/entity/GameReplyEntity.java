@@ -30,6 +30,8 @@ public class GameReplyEntity {
 
     private String wid;
 
+    private String uid;
+
     @Length(max = 500)
     private String content;
 

@@ -1,11 +1,12 @@
 package com.dkm.game.data.req;
 
+import com.dkm.base.BaseReq;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class GameArticleReq {
+public class GameArticleReq extends BaseReq {
 
     private String id;
 
@@ -15,10 +16,5 @@ public class GameArticleReq {
 
     private int isShow;
 
-    private String status;
 
-    private Date updateTime = new Date();
-    private Date createTime = new Date();
-    private String createBy = "0";
-    private String updateBy = "0";
 }

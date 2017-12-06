@@ -39,10 +39,10 @@ public class GameArticleService {
             gameArticleReq.setId(ga.getId());
             gameArticleReq.setContent(ga.getContent());
             gameArticleReq.setCreateBy(ga.getCreateBy());
-            gameArticleReq.setCreateTime(ga.getCreateTime());
+            gameArticleReq.setCreateTime(Constants.wholeDateFormat.format(ga.getCreateTime()));
             gameArticleReq.setIsShow(ga.getIsShow());
             gameArticleReq.setTitle(ga.getTitle());
-            gameArticleReq.setUpdateTime(ga.getUpdateTime());
+            gameArticleReq.setUpdateTime(Constants.wholeDateFormat.format(ga.getUpdateTime()));
             resp.getRows().add(gameArticleReq);
         }
 
