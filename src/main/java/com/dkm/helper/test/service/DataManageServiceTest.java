@@ -1,4 +1,4 @@
-package com.dkm.game.test.service;
+package com.dkm.helper.test.service;
 
 import com.dkm.base.Constants;
 import com.dkm.game.data.entity.GameLibrary;
@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

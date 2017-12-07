@@ -1,14 +1,20 @@
-package com.dkm.game.data.req;
+package com.dkm.game.article.params;
 
+import com.dkm.base.BaseParams;
 import com.dkm.base.BaseReq;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class GameArticleReq extends BaseReq {
+public class GameArticleParams extends BaseParams {
+
 
     private String id;
+
+    private String uid;
+
+    private String gid;
 
     private String title;
 

@@ -1,5 +1,6 @@
 package com.dkm.game.article.entity;
 
+import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,9 +27,9 @@ public class GameArticleEntity {
 
     private String content;
 
-    private int isShow;
+    private int isShow = 1;
 
-    private String status;
+    private String status = GameEnum.Status.VALID.getValue();
 
     private Date updateTime = new Date();
     private Date createTime = new Date();

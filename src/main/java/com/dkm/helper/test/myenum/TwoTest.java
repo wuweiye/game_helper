@@ -1,4 +1,4 @@
-package com.dkm.game.test.myenum;
+package com.dkm.helper.test.myenum;
 
 
 import com.dkm.game.data.dao.GameLibraryRepository;

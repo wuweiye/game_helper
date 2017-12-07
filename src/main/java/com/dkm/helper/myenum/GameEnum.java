@@ -1,4 +1,4 @@
-package com.dkm.game.myenum;
+package com.dkm.helper.myenum;
 
 
 import lombok.Data;

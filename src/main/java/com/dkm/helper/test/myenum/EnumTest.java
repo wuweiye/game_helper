@@ -1,4 +1,4 @@
-package com.dkm.game.test.myenum;
+package com.dkm.helper.test.myenum;
 
 
 import com.dkm.base.Constants;
@@ -6,7 +6,6 @@ import com.dkm.game.data.myenum.GameEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
