@@ -4,23 +4,25 @@ import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.game.data.dao.GameLabelRepository;
+import com.dkm.game.data.dao.GameLibraryRepository;
 import com.dkm.game.data.dao.LabelLibraryRepository;
 import com.dkm.game.data.entity.GameLabelEntity;
 import com.dkm.game.data.entity.GameLibrary;
 import com.dkm.game.data.entity.LabelLibraryEntity;
+import com.dkm.game.data.params.GameLabelParams;
 import com.dkm.game.data.req.GameLabelReq;
-import com.dkm.game.data.req.GameLibraryQueryReq;
 import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.req.LabelLibraryReq;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.dkm.game.data.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class LabelLibraryService {
@@ -31,6 +33,9 @@ public class LabelLibraryService {
     @Autowired
     LabelLibraryRepository labelLibraryRepository;
 
+    @Autowired
+    GameLibraryRepository gameLibraryRepository;
+
 
     public PageResp<LabelLibraryReq> labelQuery(Specification<LabelLibraryEntity> spec, Pageable pageable) {
 
@@ -39,9 +44,9 @@ public class LabelLibraryService {
         for(LabelLibraryEntity lle : labelLibraryEntities){
 
             LabelLibraryReq req = new LabelLibraryReq();
-            req.setGid(lle.getGid());
+            req.setId(lle.getId());
             req.setName(lle.getName());
-            req.setStatus(String.valueOf(lle.isStatus()));
+            req.setStatus(lle.getStatus());
             req.setUpdateTime(Constants.wholeDateFormat.format(lle.getUpdateTime()));
             pagesRep.getRows().add(req);
         }
@@ -55,23 +60,23 @@ public class LabelLibraryService {
     public BaseResp addGameLibrary(GameLibraryReq req, String operator) {
 
         BaseResp rep = new BaseResp();
-        boolean result = checkName(req);
-        if(result){
-            return new BaseResp(-1, "重复的标题");
-        }
         LabelLibraryEntity labelLibraryEntity;
-        if(req.getGid() != null && !"".equals(req.getGid())){
-            labelLibraryEntity = this.labelLibraryRepository.findOne(req.getGid());
+        if(!StringUtils.isEmpty(req.getId())){
+            labelLibraryEntity = this.labelLibraryRepository.findOne(req.getId());
             if (labelLibraryEntity == null) {
                 return new BaseResp(-1, "无效的 id");
             }
             labelLibraryEntity.setUpdateTime(new Date());
         }else {
+            boolean result = checkName(req);
+            if(result){
+                return new BaseResp(-1, "重复的标题");
+            }
             labelLibraryEntity = new LabelLibraryEntity();
         }
 
         labelLibraryEntity.setName(req.getName());
-        labelLibraryEntity.setStatus(Boolean.valueOf(req.getStatus()));
+        labelLibraryEntity.setStatus(req.getStatus());
         this.labelLibraryRepository.save(labelLibraryEntity);
 
 
@@ -90,22 +95,19 @@ public class LabelLibraryService {
 
     /**
      * 标签与游戏的关联保存和更新
-     * @param req
+     * @param params
      * @param operator
      * @return
      */
-    public BaseResp addGameLabel(GameLabelReq req, String operator) {
+    public BaseResp addGameLabel(GameLabelParams params, String operator) {
 
         BaseResp rep = new BaseResp();
 
-        GameLabelEntity gameLabelEntity = getByGidAndLid(req);
-        if(gameLabelEntity != null){
-            return  new BaseResp(-1,"此游戏标签已经存在");
-        }
-        GameLabelEntity entity;
-        if(req.getId() != null && req.getId()!=""){
 
-            entity = gameLabelRepository.findOne(req.getId());
+        GameLabelEntity entity;
+        if(!StringUtils.isEmpty(params.getId())){
+
+            entity = gameLabelRepository.findOne(params.getId());
             if(entity == null){
                 return  new BaseResp(-1,"找不到对应Id");
             }
@@ -113,21 +115,25 @@ public class LabelLibraryService {
             entity.setUpdateTime(new Date());
             entity.setUpdateBy(operator);
         }else {
+            GameLabelEntity gameLabelEntity = getByGidAndLid(params);
+            if(gameLabelEntity != null){
+                return  new BaseResp(-1,"此游戏标签已经存在");
+            }
             entity = new GameLabelEntity();
             entity.setCreateBy(operator);
         }
 
 
-        entity.setGid(req.getGid());
-        entity.setLid(req.getLid());
-        entity.setStatus(Boolean.parseBoolean(req.getStatus()));
+        entity.setGid(params.getGid());
+        entity.setLid(params.getLid());
+        entity.setStatus(params.getStatus());
 
         gameLabelRepository.saveAndFlush(entity);
 
         return  rep;
     }
 
-    private GameLabelEntity getByGidAndLid(GameLabelReq req) {
+    private GameLabelEntity getByGidAndLid(GameLabelParams req) {
 
         return gameLabelRepository.findByGidAndLid(req.getGid(),req.getLid());
     }
@@ -141,12 +147,43 @@ public class LabelLibraryService {
             gameLabelReq.setGid(gle.getGid());
             gameLabelReq.setId(gle.getId());
             gameLabelReq.setLid(gle.getLid());
-            gameLabelReq.setStatus(String.valueOf(gle.isStatus()));
+            gameLabelReq.setStatus(gle.getStatus());
+
+            Constants.sys(gle.getLid());
+            gameLabelReq.setCreateBy(Constants.wholeDateFormat.format(gle.getCreateTime()));
+
+            GameLibrary gameLibrary = gameLibraryRepository.getOne(gle.getGid());
+            if(gameLibrary!=null){
+                gameLabelReq.setGameName(gameLibrary.getName());
+            }
+
+            LabelLibraryEntity labelLibraryEntity = labelLibraryRepository.getOne(gle.getLid());
+            if(labelLibraryEntity != null){
+                gameLabelReq.setLabelName(labelLibraryEntity.getName());
+            }
+
+            pagesRep.getRows().add(gameLabelReq);
 
         }
 
         pagesRep.setTotal(gameLabelEntities.getTotalElements());
         return pagesRep;
 
+    }
+
+    public PageResp<LabelLibraryReq> getLabel() {
+
+        PageResp<LabelLibraryReq> resp = new PageResp<LabelLibraryReq>();
+
+        List<LabelLibraryEntity> labelLibraryEntities = labelLibraryRepository.findAll();
+        for(LabelLibraryEntity entity :labelLibraryEntities){
+
+            LabelLibraryReq labelLibraryReq = new LabelLibraryReq();
+            labelLibraryReq.setName(entity.getName());
+            labelLibraryReq.setId(entity.getId());
+            resp.getRows().add(labelLibraryReq);
+        }
+
+        return resp;
     }
 }

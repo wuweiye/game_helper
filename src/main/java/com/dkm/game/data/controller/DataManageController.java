@@ -84,6 +84,14 @@ public class DataManageController extends BaseController {
     }
 
 
+    @RequestMapping(value = "get/game")
+    public ResponseEntity<PageResp<GameLibraryReq>> getGame(){
+
+        PageResp<GameLibraryReq> resp = this.dataManageService.getGame();
+
+
+        return new ResponseEntity<PageResp<GameLibraryReq>>(resp,HttpStatus.OK);
+    }
 
 
     @RequestMapping(value = "test")

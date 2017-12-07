@@ -8,10 +8,7 @@ import com.dkm.game.data.dao.GameDataRepository;
 import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameDataEntity;
 import com.dkm.game.data.myenum.GameEnum;
-import com.dkm.game.data.req.GameAssessQueryReq;
-import com.dkm.game.data.req.GameAssessUpdateReq;
-import com.dkm.game.data.req.GameLibraryQueryReq;
-import com.dkm.game.data.req.GameLibraryReq;
+import com.dkm.game.data.req.*;
 import com.dkm.game.data.dao.GameLibraryRepository;
 import com.dkm.game.data.entity.GameLibrary;
 import com.dkm.game.data.utils.StringUtils;
@@ -20,8 +17,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DataManageService {
@@ -63,17 +62,12 @@ public class DataManageService {
     }
 
     //新增或修改
+    @Transactional
     public BaseResp addGameLibrary(GameLibraryReq req, String operator) {
 
         BaseResp rep = new BaseResp();
         String status = checkName(req);
-        if(status != GameEnum.Status.INVALID.getValue()){
 
-            if(status == GameEnum.Status.DELETE.getValue()){
-                return new BaseResp(-1, "已经删除的标题，恢复待定");
-            }
-            return new BaseResp(-1, "重复的标题");
-        }
         GameLibrary gameLibrary;
         if(!StringUtils.isEmpty(req.getGid())){
             gameLibrary = this.gameLibraryRepository.findOne(req.getGid());
@@ -82,6 +76,13 @@ public class DataManageService {
             }
             gameLibrary.setUpdateTime(new Date());
         }else {
+            if(status != GameEnum.Status.INVALID.getValue()){
+
+                if(status == GameEnum.Status.DELETE.getValue()){
+                    return new BaseResp(-1, "已经删除的标题，恢复待定");
+                }
+                return new BaseResp(-1, "重复的标题");
+            }
             gameLibrary = new GameLibrary();
         }
 
@@ -229,5 +230,22 @@ public class DataManageService {
 
         return gameAssessQueryReq;
 
+    }
+
+    public PageResp<GameLibraryReq> getGame() {
+
+        PageResp<GameLibraryReq> resp = new PageResp<>();
+
+        List<GameLibrary> gameLibraries = gameLibraryRepository.findByStatus(GameEnum.Status.VALID.getValue());
+
+        for(GameLibrary library : gameLibraries){
+
+            GameLibraryReq req = new GameLibraryReq();
+            req.setId(library.getGId());
+            req.setName(library.getName());
+            resp.getRows().add(req);
+        }
+
+        return resp;
     }
 }
