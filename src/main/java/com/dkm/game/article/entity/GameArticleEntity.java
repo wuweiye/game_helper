@@ -1,4 +1,4 @@
-package com.dkm.game.data.entity;
+package com.dkm.game.article.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

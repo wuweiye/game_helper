@@ -1,14 +1,11 @@
-package com.dkm.game.data.controller;
+package com.dkm.game.article.controller;
 
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.game.data.entity.GameArticleEntity;
-import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.article.entity.GameArticleEntity;
 import com.dkm.game.data.req.GameArticleReq;
-import com.dkm.game.data.req.GameLibraryQueryReq;
-import com.dkm.game.data.service.GameArticleService;
+import com.dkm.game.article.service.GameArticleService;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -19,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
