@@ -14,6 +14,8 @@ import java.util.List;
 public class BaseReq {
 
 
+    private String id;
+
     private  String status;
 
     private String createTime ;

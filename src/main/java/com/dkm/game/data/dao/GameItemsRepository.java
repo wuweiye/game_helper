@@ -1,0 +1,10 @@
+package com.dkm.game.data.dao;
+
+import com.dkm.game.data.entity.GameItemsEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+public interface GameItemsRepository extends JpaRepository<GameItemsEntity, String> ,JpaSpecificationExecutor<GameItemsEntity> {
+
+
+}

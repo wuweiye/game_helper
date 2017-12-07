@@ -23,23 +23,23 @@ public class GameReplyEntity {
 
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid.hex")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "uuid")
     private String id;
 
-    private String gid;
+    private String gid = "0";
 
-    private String wid;
+    private String wid = "0";
 
-    private String uid;
+    private String uid = "0";
 
     @Length(max = 500)
-    private String content;
+    private String content = "0";
 
 
     /**
      * 是否显示
      */
-    private int isShow;
+    private int isShow = 0;
 
 
     /**

@@ -1,5 +1,6 @@
 package com.dkm.game.data.entity;
 
+import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +31,7 @@ public class GameDataEntity {
     @Length(max = 300)
     private String content;
 
-    private String status;
+    private String status = GameEnum.Status.VALID.getValue();
 
 
     private Date updateTime = new Date();

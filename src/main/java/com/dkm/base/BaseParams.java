@@ -12,5 +12,8 @@ public class BaseParams {
 
     private String id;
 
+    private String uid;
+
+
 
 }
