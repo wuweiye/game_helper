@@ -13,4 +13,8 @@ public class GameItemsReq extends BaseReq{
 
     private String gid;
 
+    private String gameName;
+
+    private String urlPath;
+
 }

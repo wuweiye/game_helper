@@ -4,7 +4,9 @@ import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.game.data.dao.GameItemsRepository;
+import com.dkm.game.data.dao.GameLibraryRepository;
 import com.dkm.game.data.entity.GameItemsEntity;
+import com.dkm.game.data.entity.GameLibrary;
 import com.dkm.game.data.myenum.GameEnum;
 import com.dkm.game.data.params.GameItemsParams;
 import com.dkm.game.data.req.GameItemsReq;
@@ -23,6 +25,9 @@ public class GameItemsService {
     @Autowired
     GameItemsRepository gameItemsRepository;
 
+    @Autowired
+    GameLibraryRepository gameLibraryRepository;
+
 
     public void save(){
         GameItemsEntity gameItemsEntity = new GameItemsEntity();
@@ -39,12 +44,17 @@ public class GameItemsService {
             GameItemsReq req = new GameItemsReq();
 
             req.setDesc(entity.getDescription());
-            //TODO : 后期处理
+
             req.setGid(entity.getGid());
+            req.setGameName(gameLibraryRepository.getOne(entity.getGid()).getName());
             req.setName(entity.getName());
+            req.setUrlPath(entity.getUrlPath());
+            req.setDesc(entity.getDescription());
+
             req.setCreateBy(Constants.wholeDateFormat.format(entity.getCreateTime()));
             req.setCreateBy(entity.getCreateBy());
 
+            resp.getRows().add(req);
         }
 
 
