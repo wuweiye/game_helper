@@ -17,7 +17,7 @@ public class BaseReq {
 
     private String id;
 
-    private  String status = GameEnum.Status.VALID.getValue();
+    private  String status;
 
     private String createTime ;
 

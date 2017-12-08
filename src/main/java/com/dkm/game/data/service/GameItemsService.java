@@ -43,6 +43,8 @@ public class GameItemsService {
         for(GameItemsEntity entity : gameItemsEntities){
             GameItemsReq req = new GameItemsReq();
 
+            req.setId(entity.getId());
+
             req.setDesc(entity.getDescription());
 
             req.setGid(entity.getGid());
@@ -51,6 +53,8 @@ public class GameItemsService {
             req.setUrlPath(entity.getUrlPath());
             req.setDesc(entity.getDescription());
 
+            req.setStatus(entity.getStatus());
+
             req.setCreateBy(Constants.wholeDateFormat.format(entity.getCreateTime()));
             req.setCreateBy(entity.getCreateBy());
 
@@ -58,6 +62,7 @@ public class GameItemsService {
         }
 
 
+        resp.setTotal(gameItemsEntities.getTotalElements());
 
         return resp;
     }
@@ -82,7 +87,10 @@ public class GameItemsService {
         entity.setDescription(params.getDesc());
         entity.setGid(params.getGid());
         entity.setName(params.getName());
-        entity.setUrlPath(params.getUrlPath());
+        if(!StringUtils.isEmpty(params.getUrlPath())){
+            entity.setUrlPath(params.getUrlPath());
+        }
+
 
         gameItemsRepository.saveAndFlush(entity);
 

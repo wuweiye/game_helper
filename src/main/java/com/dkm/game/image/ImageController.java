@@ -2,6 +2,9 @@ package com.dkm.game.image;
 
 
 import com.dkm.tulip.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,13 +21,32 @@ import java.nio.file.Paths;
 @RestController
 public class ImageController {
 
+    private final ResourceLoader resourceLoader;
 
-    public static final String ROOT = "upload-dir";
+    @Autowired
+    public ImageController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
+    public static final String ROOT = "upload";
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/show/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<?> getFile(@PathVariable String filename) {
+
+        try {
+
+            Resource resource = resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString());
+            return ResponseEntity.ok(resource);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
     @RequestMapping(value = "yup2")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("urlPath") MultipartFile file,
                                    RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (!file.isEmpty()) {
             try {
@@ -42,7 +64,7 @@ public class ImageController {
 
 
     @RequestMapping(value="yup")
-    public String uploadImg(@RequestParam MultipartFile file,
+    public String uploadImg(@RequestParam("urlPath") MultipartFile file,
                      HttpServletRequest request) {
         String contentType = file.getContentType();
         String fileName = file.getOriginalFilename();
