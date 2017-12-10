@@ -10,4 +10,7 @@ public interface GameLibraryRepository extends JpaRepository<GameLibrary, String
 
 
     public GameLibrary findByName(String name);
+
+
+    public List<GameLibrary> findByStatus (String name);
 }

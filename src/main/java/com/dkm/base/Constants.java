@@ -16,7 +16,7 @@ public class Constants {
 
 
     public static void sys(String value){
-        System.out.println(value);
+        System.out.println("----------------------"+value);
     }
 
 

@@ -2,11 +2,14 @@ package com.dkm.game.data.controller;
 
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
+import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.req.GameAssessUpdateReq;
 import com.dkm.game.data.req.GameLibraryQueryReq;
 import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.service.DataManageService;
 import com.dkm.basic.component.ext.web.PageResp;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
@@ -59,7 +62,7 @@ public class DataManageController extends BaseController {
     @ResponseBody
     public ResponseEntity<PageResp<GameLibraryQueryReq>> query(HttpServletRequest request,
                                                                @And({@Spec(params = "name", path = "name", spec = Like.class),
-                                                                  @Spec(params = "status", path = "status", spec = In.class)})
+                                                                  @Spec(params = "status", path = "status", spec = Equal.class)})
                                                                   Specification<GameLibrary> spec,
                                                                @RequestParam int page,
                                                                @RequestParam int rows) {
@@ -73,5 +76,30 @@ public class DataManageController extends BaseController {
 
 
 
+    public  ResponseEntity<BaseResp> updateStar(GameAssessUpdateReq req){
+        String operator = super.getLoginUser();
+        BaseResp rep = this.dataManageService.updateStar(req, operator);
+
+        return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "get/game")
+    public ResponseEntity<PageResp<GameLibraryReq>> getGame(){
+
+        PageResp<GameLibraryReq> resp = this.dataManageService.getGame();
+
+
+        return new ResponseEntity<PageResp<GameLibraryReq>>(resp,HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "test")
+    public String test(){
+
+        dataManageService.save(new GameLibrary());
+
+        return "ok" ;
+    }
 
 }

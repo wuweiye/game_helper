@@ -1,5 +1,6 @@
 package com.dkm.game.data.entity;
 
+import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class GameLibrary {
 
     private String name  = "test";
 
-    private boolean status = true;
+    private String status = GameEnum.Status.VALID.getValue();
     private Date updateTime = new Date();
     private Date createTime = new Date();
 }
