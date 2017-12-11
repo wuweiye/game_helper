@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@RequestMapping(value = "/game/article/manage/", produces = "application/json;charset=utf-8")
+@RequestMapping(value = "/game/article/manage/")
 @RestController
 public class GameArticleController extends BaseController {
 
