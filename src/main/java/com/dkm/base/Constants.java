@@ -11,7 +11,7 @@ public class Constants {
 
     public  static  final SimpleDateFormat yearAndDayDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public  static  final SimpleDateFormat hourAndMinuteFormat = new SimpleDateFormat("HH:mm:ss");
+    public  static  final SimpleDateFormat hourAndMinuteFormat = new SimpleDateFormat("HH-mm-ss");
 
 
 

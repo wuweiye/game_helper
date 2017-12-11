@@ -1,4 +1,4 @@
-package com.dkm.game.data.utils;
+package com.dkm.game.utils;
 
 public class StringUtils {
 
