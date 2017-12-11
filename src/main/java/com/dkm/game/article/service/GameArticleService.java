@@ -8,6 +8,8 @@ import com.dkm.game.article.dao.GameArticleDao;
 import com.dkm.game.article.entity.GameArticleEntity;
 import com.dkm.game.article.params.GameArticleParams;
 import com.dkm.game.article.req.GameArticleReq;
+import com.dkm.game.data.dao.GameLibraryRepository;
+import com.dkm.game.data.entity.GameLibrary;
 import com.dkm.game.data.myenum.GameEnum;
 import com.dkm.game.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class GameArticleService extends BaseService{
     @Autowired
     GameArticleDao gameArticleRepository;
 
+    @Autowired
+    GameLibraryRepository gameLibraryRepository;
+
 
     /**
      * 查询展示  前后台
@@ -39,6 +44,9 @@ public class GameArticleService extends BaseService{
         for(GameArticleEntity ga : gameArticleEntities){
             GameArticleReq gameArticleReq = new GameArticleReq();
             gameArticleReq.setId(ga.getId());
+            gameArticleReq.setGid(ga.getGid());
+            gameArticleReq.setStatus(ga.getStatus());
+            gameArticleReq.setGameName(gameLibraryRepository.getOne(ga.getGid()).getName());
             gameArticleReq.setContent(ga.getContent());
             gameArticleReq.setCreateBy(ga.getCreateBy());
             gameArticleReq.setCreateTime(Constants.wholeDateFormat.format(ga.getCreateTime()));
@@ -78,6 +86,8 @@ public class GameArticleService extends BaseService{
         }
 
 
+        entity.setGid(params.getGid());
+        entity.setStatus(params.getStatus());
         entity.setIsShow(params.getIsShow());
         entity.setContent(params.getContent());
         entity.setTitle(params.getTitle());

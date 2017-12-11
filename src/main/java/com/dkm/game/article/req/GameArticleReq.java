@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 public class GameArticleReq extends BaseReq {
 
-    private String id;
+    private String gid;
+
+    private String gameName;
 
     private String title;
 
@@ -14,6 +16,8 @@ public class GameArticleReq extends BaseReq {
     private String content;
 
     private int isShow;
+
+
 
 
 }

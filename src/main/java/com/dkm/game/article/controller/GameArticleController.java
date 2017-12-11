@@ -37,12 +37,10 @@ public class GameArticleController extends BaseController {
     public ResponseEntity<PageResp<GameArticleReq>> query(HttpServletRequest request,
                                                              @And({@Spec(params = "gid", path = "gid", spec = Equal.class),
                                                                      @Spec(params = "title", path = "title", spec = Like.class),
-                                                                     @Spec(params = "isShow", path = "isShow", spec = Equal.class),
-                                                                     @Spec(params = "content", path = "content", spec = Like.class)})
+                                                                     @Spec(params = "status", path = "status", spec = Equal.class)})
                                                                      Specification<GameArticleEntity> spec,
                                                              @RequestParam int page,
                                                              @RequestParam int rows){
-
 
         Pageable pageable = new PageRequest(page - 1, rows, new Sort(new Sort.Order(Sort.Direction.DESC, "createTime")));
         PageResp<GameArticleReq> rep = this.gameArticleService.gameArticleQuery(spec, pageable);
