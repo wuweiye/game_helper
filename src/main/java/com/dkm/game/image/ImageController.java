@@ -1,21 +1,28 @@
 package com.dkm.game.image;
 
 
-import com.dkm.tulip.util.FileUtil;
+import com.dkm.base.Constants;
+import com.dkm.game.utils.ImageUploadUtil;
+import com.dkm.points.component.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
+import java.util.Iterator;
 
 @RequestMapping(value = "/game/image/")
 @RestController
@@ -42,6 +49,19 @@ public class ImageController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @RequestMapping("imageUpload")
+    public void imageUpload(HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectAttributes) {
+
+
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+        Iterator<String> iter = multiRequest.getFileNames();
+        while (iter.hasNext()) {
+
+
+        }
+
     }
 
 

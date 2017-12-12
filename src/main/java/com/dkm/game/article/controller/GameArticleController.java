@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@RequestMapping(value = "/game/article/manage/", produces = "application/json;charset=utf-8")
+@RequestMapping(value = "/game/article/manage/")
 @RestController
 public class GameArticleController extends BaseController {
 
@@ -37,12 +37,10 @@ public class GameArticleController extends BaseController {
     public ResponseEntity<PageResp<GameArticleReq>> query(HttpServletRequest request,
                                                              @And({@Spec(params = "gid", path = "gid", spec = Equal.class),
                                                                      @Spec(params = "title", path = "title", spec = Like.class),
-                                                                     @Spec(params = "isShow", path = "isShow", spec = Equal.class),
-                                                                     @Spec(params = "content", path = "content", spec = Like.class)})
+                                                                     @Spec(params = "status", path = "status", spec = Equal.class)})
                                                                      Specification<GameArticleEntity> spec,
                                                              @RequestParam int page,
                                                              @RequestParam int rows){
-
 
         Pageable pageable = new PageRequest(page - 1, rows, new Sort(new Sort.Order(Sort.Direction.DESC, "createTime")));
         PageResp<GameArticleReq> rep = this.gameArticleService.gameArticleQuery(spec, pageable);

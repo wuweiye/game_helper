@@ -18,8 +18,6 @@ public class GameLabelParams extends BaseParams{
     private String lid;
 
 
-    private String status = GameEnum.Status.VALID.getValue();
-
 
 
 }

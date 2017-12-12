@@ -14,6 +14,8 @@ public class BaseParams {
 
     private String uid;
 
+    private String status;
+
 
 
 }
