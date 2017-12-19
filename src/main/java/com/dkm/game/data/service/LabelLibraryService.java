@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,12 @@ public class LabelLibraryService {
     GameLibraryRepository gameLibraryRepository;
 
 
+    /**
+     * 查询标签库
+     * @param spec
+     * @param pageable
+     * @return
+     */
     public PageResp<LabelLibraryReq> labelQuery(Specification<LabelLibraryEntity> spec, Pageable pageable) {
 
         Page<LabelLibraryEntity> labelLibraryEntities = this.labelLibraryRepository.findAll(spec, pageable);
@@ -55,7 +62,12 @@ public class LabelLibraryService {
     }
 
 
-
+    /**
+     * 增加游戏标签
+     * @param req
+     * @param operator
+     * @return
+     */
     public BaseResp addGameLibrary(GameLibraryReq req, String operator) {
 
         BaseResp rep = new BaseResp();
@@ -82,6 +94,11 @@ public class LabelLibraryService {
         return rep;
     }
 
+    /**
+     * 检查是否重复
+     * @param req
+     * @return
+     */
     private boolean checkName(GameLibraryReq req) {
 
         LabelLibraryEntity labelLibraryEntity = this.labelLibraryRepository.findByName(req.getName());
@@ -132,11 +149,18 @@ public class LabelLibraryService {
         return  rep;
     }
 
+
     private GameLabelEntity getByGidAndLid(GameLabelParams req) {
 
         return gameLabelRepository.findByGidAndLid(req.getGid(),req.getLid());
     }
 
+    /**
+     * 获取所有游戏标签
+     * @param spec
+     * @param pageable
+     * @return
+     */
     public PageResp<GameLabelReq> gameLabelQuery(Specification<GameLabelEntity> spec, Pageable pageable) {
         Page<GameLabelEntity> gameLabelEntities = this.gameLabelRepository.findAll(spec, pageable);
         PageResp<GameLabelReq> pagesRep = new PageResp<GameLabelReq>();
@@ -170,6 +194,12 @@ public class LabelLibraryService {
 
     }
 
+
+
+    /**
+     * 获取所有标签
+     * @return
+     */
     public PageResp<LabelLibraryReq> getLabel() {
 
         PageResp<LabelLibraryReq> resp = new PageResp<LabelLibraryReq>();
@@ -184,5 +214,24 @@ public class LabelLibraryService {
         }
 
         return resp;
+    }
+
+
+    /**
+     * 根据gid 获取一个游戏所有标签
+     * @param gid
+     * @return List<String>
+     */
+    public List<String> getByGidLabel(String gid){
+
+        List<String> list = new ArrayList<>();
+
+        List<GameLabelEntity> gameLabelEntityList = gameLabelRepository.findByGid(gid);
+        for (GameLabelEntity labelEntity : gameLabelEntityList){
+            LabelLibraryEntity labelLibraryEntity = labelLibraryRepository.getOne(labelEntity.getLid());
+            list.add(labelLibraryEntity.getName());
+        }
+
+        return  list;
     }
 }

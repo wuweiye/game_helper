@@ -120,7 +120,6 @@ public class LabelManageController extends BaseController{
     }
 
 
-
     @RequestMapping("get/label")
     public ResponseEntity<PageResp<LabelLibraryReq>> getLabel(){
 

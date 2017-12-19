@@ -246,6 +246,37 @@ public class DataManageService {
             resp.getRows().add(req);
         }
 
+
+        resp.setTotal(gameLibraries.size());
+
         return resp;
+    }
+
+
+    /**
+     * 根据gid 获取游戏
+     * @param gid
+     */
+    public GameLibrary getByGidDetail(String gid){
+
+        return gameLibraryRepository.getOne(gid);
+
+    }
+
+    /**
+     * 根据gid 获取游戏评价
+     * @param gid
+     */
+    public  GameAssessEntity  getGameAssessByGid(String gid){
+        return gameAssessRepository.getOne(gid);
+    }
+
+
+    /**
+     * 根据gid 获取游戏资料
+     * @param gid
+     */
+    public GameDataEntity getGameDataEntityByGid(String gid){
+        return gameDataRepository.getOne(gid);
     }
 }
