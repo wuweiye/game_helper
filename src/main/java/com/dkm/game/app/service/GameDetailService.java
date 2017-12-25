@@ -29,20 +29,24 @@ public class GameDetailService {
 
         GameDetailReq req  = new GameDetailReq();
 
-        //TODO: 后期添加 图片路径，生产商，关注人数
         GameLibrary gameLibrary = dataManageService.getByGidDetail(params.getGid());
         GameDataEntity gameDataEntity = dataManageService.getGameDataEntityByGid(params.getGid());
         GameAssessEntity gameAssessEntity = dataManageService.getGameAssessByGid(params.getGid());
 
         req.setGameName(gameLibrary.getName());
-        req.setFollowCount(0);
-        req.setDevelopStore("未知");
-        req.setUrlPath("http://bpic.588ku.com/element_origin_min_pic/16/10/30/528aa13209e86d5d9839890967a6b9c1.jpg");
+        req.setFollowCount(gameDataEntity.getFollowCount());
+        req.setDevelopStore(gameDataEntity.getDevelopStore());
+        if(gameDataEntity.getUrlPath().equals("none")){
+            req.setUrlPath("http://bpic.588ku.com/element_origin_min_pic/16/10/30/528aa13209e86d5d9839890967a6b9c1.jpg");
+        }else {
+            req.setUrlPath(gameDataEntity.getUrlPath());
+        }
 
         req.setLabels(labelLibraryService.getByGidLabel(params.getGid()));
 
         req.setDesc(gameDataEntity.getContent());
 
+        //TODO:获取留言
 
         return req;
     }
@@ -53,19 +57,8 @@ public class GameDetailService {
      * @param gid
      */
     public void getMessageByGid(String gid){
-        //TODO:获取留言
+
 
     }
-
-    /*private int accumulate(int a) {
-        if (a <= 0) {
-            return 0;
-        }
-        int sum = 0;
-        for(int i = 0; i <= a; i++) {
-            sum += a;
-        }
-        return sum;
-    }*/
 
 }
