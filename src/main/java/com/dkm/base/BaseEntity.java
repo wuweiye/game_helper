@@ -14,10 +14,15 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @Id
+    /*@Id
     @GenericGenerator(name = "uuid", strategy = "uuid.hex")
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "uuid")
-    private String id;
+    private String id;*/
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 
     private String status = GameEnum.Status.VALID.getValue();

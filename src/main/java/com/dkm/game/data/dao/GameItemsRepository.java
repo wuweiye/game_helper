@@ -4,7 +4,7 @@ import com.dkm.game.data.entity.GameItemsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface GameItemsRepository extends JpaRepository<GameItemsEntity, String> ,JpaSpecificationExecutor<GameItemsEntity> {
+public interface GameItemsRepository extends JpaRepository<GameItemsEntity, Long> ,JpaSpecificationExecutor<GameItemsEntity> {
 
 
 }

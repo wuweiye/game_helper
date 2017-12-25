@@ -72,7 +72,7 @@ public class GameArticleController extends BaseController {
 
 
     @RequestMapping(value = "delete")
-    public ResponseEntity<BaseResp> delete(@RequestParam String id){
+    public ResponseEntity<BaseResp> delete(@RequestParam Long id){
 
         String operator = super.getLoginUser();
         BaseResp resp = gameArticleService.detele(id,operator);

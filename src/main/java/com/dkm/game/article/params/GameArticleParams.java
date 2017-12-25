@@ -10,11 +10,11 @@ import java.util.Date;
 public class GameArticleParams extends BaseParams {
 
 
-    private String id;
+    private Long id;
 
-    private String uid;
+    private Long uid;
 
-    private String gid;
+    private Long gid;
 
     private String title;
 

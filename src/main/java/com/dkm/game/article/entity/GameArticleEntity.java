@@ -20,9 +20,9 @@ import java.util.Date;
 public class GameArticleEntity extends BaseEntity{
 
 
-    private String gid;
+    private Long gid;
 
-    private String uid;
+    private Long uid;
 
     private String title;
 

@@ -1,5 +1,6 @@
 package com.dkm.game.message.entity;
 
+import com.dkm.base.BaseEntity;
 import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,16 +18,16 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GameWordsEntity {
-
+public class GameWordsEntity extends BaseEntity{
+/*
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid.hex")
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid")
-    private String id;
+    private String id;*/
 
-    private String gid;
+    private Long gid;
 
-    private String uid;
+    private Long uid;
 
     @Length(max = 500)
     private String content;
@@ -48,12 +49,12 @@ public class GameWordsEntity {
 
     /**
      * 状态
-     */
+     *//*
     private  String status = GameEnum.Status.VALID.getValue();
 
     private Date updateTime = new Date();
     private Date createTime = new Date();
     private String createBy = "0";
-    private String updateBy = "0";
+    private String updateBy = "0";*/
 
 }

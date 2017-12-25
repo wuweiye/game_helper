@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class GameDetailParams extends BaseParams {
 
-    private String gid;
+    private Long gid;
 
 }

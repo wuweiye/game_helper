@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(value = "/game/detail/")
@@ -21,7 +23,7 @@ public class GameDetailController {
     GameDetailService gameDetailService;
 
     @RequestMapping(value = "get/detail")
-    public ResponseEntity<GameDetailReq> getGameDetail(@RequestParam GameDetailParams params){
+    public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 
         GameDetailReq req = gameDetailService.getDetail(params);
 

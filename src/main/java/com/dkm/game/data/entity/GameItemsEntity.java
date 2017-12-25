@@ -22,7 +22,7 @@ public class GameItemsEntity extends BaseEntity {
 
 
 
-    private String gid ;
+    private Long gid ;
 
     private String name ;
 

@@ -29,6 +29,8 @@ public class GameDetailService {
 
         GameDetailReq req  = new GameDetailReq();
 
+        req.setId(params.getGid());
+
         GameLibrary gameLibrary = dataManageService.getByGidDetail(params.getGid());
         GameDataEntity gameDataEntity = dataManageService.getGameDataEntityByGid(params.getGid());
         GameAssessEntity gameAssessEntity = dataManageService.getGameAssessByGid(params.getGid());
@@ -41,6 +43,14 @@ public class GameDetailService {
         }else {
             req.setUrlPath(gameDataEntity.getUrlPath());
         }
+
+
+        //评价
+        req.setOneStarNum(gameAssessEntity.getOneStarNum());
+        req.setTwoStarNum(gameAssessEntity.getTwoStarNum());
+        req.setThereStarNum(gameAssessEntity.getThereStarNum());
+        req.setFourStarNum(gameAssessEntity.getFourStarNum());
+        req.setFiveStarNum(gameAssessEntity.getFiveStarNum());
 
         req.setLabels(labelLibraryService.getByGidLabel(params.getGid()));
 

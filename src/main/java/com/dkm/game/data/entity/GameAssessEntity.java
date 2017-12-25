@@ -1,5 +1,6 @@
 package com.dkm.game.data.entity;
 
+import com.dkm.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,27 +17,16 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GameAssessEntity {
+public class GameAssessEntity extends BaseEntity{
 
-    @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid.hex")
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid")
-    private String id;
+
+    private Long gid;
 
     private int oneStarNum = 0;
     private int twoStarNum = 0;
     private int thereStarNum = 0;
     private int fourStarNum = 0;
     private int fiveStarNum = 0;
-
-    private String status;
-    private Date updateTime = new Date();
-    private Date createTime = new Date();
-    private String createBy = "0";
-    private String updateBy = "0";
-
-
-
 
 
     public int getTotal(){
