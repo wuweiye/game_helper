@@ -234,4 +234,37 @@ public class LabelLibraryService {
 
         return  list;
     }
+
+
+
+
+
+    public void test(){
+
+        /*try {
+            Constants.sys(gameLabelRepository.getLid("402881eb60303c990160303e45280003"));
+        } catch (Exception e) {
+            Constants.sys("1 error");
+        }
+
+        try {
+            Constants.sys(gameLabelRepository.getLid2("402881eb60303c990160303e45280003"));
+        } catch (Exception e) {
+            Constants.sys("2 error");
+        }
+
+        try {
+            Constants.sys(gameLabelRepository.getLid3("402881eb60303c990160303e45280003"));
+        } catch (Exception e) {
+            Constants.sys("3 error");
+        }
+
+        try {
+            Constants.sys(gameLabelRepository.getLid4("402881eb60303c990160303e45280003"));
+        } catch (Exception e) {
+            Constants.sys("4 error");
+        }*/
+
+
+    }
 }

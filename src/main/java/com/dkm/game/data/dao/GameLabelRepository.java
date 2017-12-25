@@ -13,4 +13,20 @@ public interface GameLabelRepository extends JpaRepository<GameLabelEntity, Stri
 
 
     public List<GameLabelEntity> findByGid(String gid);
+
+
+    /*@Query("select gl.lid from  game_label gl where gl.gid = :gid")*/
+  /*  public String getLid2(@Param("gid") String gid);*/
+/*
+    @Query("select gl.lid from  game_label gl where gl.gid = ?1")
+    public String getLid( String gid);*/
+
+    /*@Query("select gl.lid from  game_label gl where gl.gid = :gid")
+    public String getLid2(@Param("gid") String gid);
+
+    @Query("select gl.lid from  GameLabelEntity gl where gl.gid = :gid")
+    public String getLid3(@Param("gid") String gid);*/
+
+    /*@Query("select gl.lid from  #{#emtityName} gl where gl.gid = :gid")
+    public String getLid4(@Param("gid") String gid);*/
 }

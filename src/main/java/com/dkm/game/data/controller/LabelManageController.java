@@ -132,6 +132,11 @@ public class LabelManageController extends BaseController{
 
 
 
+    @RequestMapping("test")
+    public void  test(){
+        labelLibraryService.test();
+    }
+
 
 
 }

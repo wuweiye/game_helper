@@ -1,9 +1,6 @@
 package com.dkm.game.app.service;
 
 import com.dkm.game.app.req.GameDetailReq;
-import com.dkm.game.data.dao.GameLabelRepository;
-import com.dkm.game.data.dao.GameLibraryRepository;
-import com.dkm.game.data.dao.LabelLibraryRepository;
 import com.dkm.game.data.entity.*;
 import com.dkm.game.data.params.GameDetailParams;
 import com.dkm.game.data.service.DataManageService;
@@ -11,7 +8,6 @@ import com.dkm.game.data.service.LabelLibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class GameDetailService {
@@ -47,11 +43,29 @@ public class GameDetailService {
 
         req.setDesc(gameDataEntity.getContent());
 
-        //TODO:评价展示
-
-
-
 
         return req;
     }
+
+
+    /**
+     * 根据gid获取留言
+     * @param gid
+     */
+    public void getMessageByGid(String gid){
+        //TODO:获取留言
+
+    }
+
+    /*private int accumulate(int a) {
+        if (a <= 0) {
+            return 0;
+        }
+        int sum = 0;
+        for(int i = 0; i <= a; i++) {
+            sum += a;
+        }
+        return sum;
+    }*/
+
 }
