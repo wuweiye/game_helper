@@ -28,7 +28,6 @@ public class GameLibrary extends BaseEntity{
 
     private String name  = "test";
 
-   /* private String status = GameEnum.Status.VALID.getValue();
-    private Date updateTime = new Date();
-    private Date createTime = new Date();*/
+
+    private String logoUrl;
 }

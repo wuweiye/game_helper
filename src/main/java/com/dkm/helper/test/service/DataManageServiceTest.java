@@ -2,6 +2,7 @@ package com.dkm.helper.test.service;
 
 import com.dkm.base.Constants;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.params.GameLibraryParams;
 import com.dkm.game.data.req.GameLibraryReq;
 import com.dkm.game.data.service.DataManageService;
 import org.junit.After;
@@ -56,7 +57,7 @@ public class DataManageServiceTest {
     @Test
     public void addGameLibrary() throws Exception {
 
-        GameLibraryReq req = new GameLibraryReq();
+        GameLibraryParams req = new GameLibraryParams();
         req.setName("123456");
         req.setStatus("true");
 

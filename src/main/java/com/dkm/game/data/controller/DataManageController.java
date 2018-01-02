@@ -4,6 +4,7 @@ import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.params.GameLibraryParams;
 import com.dkm.game.data.req.GameAssessUpdateReq;
 import com.dkm.game.data.req.GameLibraryQueryReq;
 import com.dkm.game.data.req.GameLibraryReq;
@@ -40,18 +41,18 @@ public class DataManageController extends BaseController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public ResponseEntity<BaseResp> add(@Valid GameLibraryReq req){
+    public ResponseEntity<BaseResp> add(@Valid GameLibraryParams params){
         String operator = super.getLoginUser();
-        BaseResp rep = this.dataManageService.addGameLibrary(req, operator);
+        BaseResp rep = this.dataManageService.addGameLibrary(params, operator);
 
         return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BaseResp> update(@Valid GameLibraryReq req) {
+    public ResponseEntity<BaseResp> update(@Valid GameLibraryParams params) {
         String operator = super.getLoginUser();
-        BaseResp rep = this.dataManageService.addGameLibrary(req, operator);
+        BaseResp rep = this.dataManageService.addGameLibrary(params, operator);
 
         return new ResponseEntity<BaseResp>(rep, HttpStatus.OK);
     }

@@ -8,6 +8,7 @@ import com.dkm.game.data.dao.GameDataRepository;
 import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameDataEntity;
 import com.dkm.game.data.myenum.GameEnum;
+import com.dkm.game.data.params.GameLibraryParams;
 import com.dkm.game.data.req.*;
 import com.dkm.game.data.dao.GameLibraryRepository;
 import com.dkm.game.data.entity.GameLibrary;
@@ -69,14 +70,14 @@ public class DataManageService {
 
     //新增或修改
     @Transactional
-    public BaseResp addGameLibrary(GameLibraryReq req, String operator) {
+    public BaseResp addGameLibrary(GameLibraryParams params, String operator) {
 
         BaseResp rep = new BaseResp();
-        String status = checkName(req);
+        String status = checkName(params);
 
         GameLibrary gameLibrary;
-        if(!StringUtils.isEmpty(req.getGid())){
-            gameLibrary = this.gameLibraryRepository.findOne(req.getGid());
+        if(!StringUtils.isEmpty(params.getGid())){
+            gameLibrary = this.gameLibraryRepository.findOne(params.getGid());
             if (gameLibrary == null) {
                 return new BaseResp(-1, "无效的 id");
             }
@@ -92,11 +93,15 @@ public class DataManageService {
             gameLibrary = new GameLibrary();
         }
 
-        gameLibrary.setName(req.getName());
-        gameLibrary.setStatus(req.getStatus());
+        gameLibrary.setName(params.getName());
+        gameLibrary.setStatus(params.getStatus());
+        if(StringUtils.isEmpty(params.getUrlPath())){
+            params.setUrlPath("--");
+        }
+        gameLibrary.setLogoUrl(params.getUrlPath());
         gameLibrary = this.gameLibraryRepository.saveAndFlush(gameLibrary);
-        if(StringUtils.isEmpty(req.getGid())){
-            createRelatedInfo(gameLibrary.getId(),operator,req);
+        if(StringUtils.isEmpty(params.getGid())){
+            createRelatedInfo(gameLibrary.getId(),operator,params);
         }
 
         return rep;
@@ -105,9 +110,9 @@ public class DataManageService {
     /**
      * 创建相关表信息
      * @param id
-     * @param req
+     * @param params
      */
-    private void createRelatedInfo(Long id, String operator, GameLibraryReq req) {
+    private void createRelatedInfo(Long id, String operator, GameLibraryParams params) {
 
         GameAssessEntity assessEntity = gameAssessRepository.findOne(id);
         if(assessEntity == null){
@@ -122,11 +127,13 @@ public class DataManageService {
 
             dataEntity = new GameDataEntity();
             dataEntity.setGid(id);
-            dataEntity.setContent(req.getContent());
+            dataEntity.setContent(params.getDesc());
+            dataEntity.setDevelopStore(params.getDevelopStore());
+            dataEntity.setUrlPath(params.getUrlPath());
             gameDataRepository.saveAndFlush(dataEntity);
         }else{
-            if(!StringUtils.isEmpty(req.getContent())){
-                dataEntity.setContent(req.getContent());
+            if(!StringUtils.isEmpty(params.getDesc())){
+                dataEntity.setContent(params.getDesc());
                 dataEntity.setUpdateTime(new Date());
                 gameDataRepository.saveAndFlush(dataEntity);
             }
@@ -135,9 +142,9 @@ public class DataManageService {
 
     }
 
-    private String checkName(GameLibraryReq req) {
+    private String checkName(GameLibraryParams params) {
 
-        GameLibrary gameLibrary = this.gameLibraryRepository.findByName(req.getName());
+        GameLibrary gameLibrary = this.gameLibraryRepository.findByName(params.getName());
         if(gameLibrary != null){
             return gameLibrary.getStatus();
         }
