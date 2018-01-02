@@ -40,6 +40,12 @@ public class DataManageService {
     }
 
 
+    /**
+     * 查询游戏列表
+     * @param spec
+     * @param pageable
+     * @return
+     */
     public PageResp<GameLibraryQueryReq> gameLibraryQuery(Specification<GameLibrary> spec, Pageable pageable) {
 
         Page<GameLibrary> gameLibraries = this.gameLibraryRepository.findAll(spec, pageable);

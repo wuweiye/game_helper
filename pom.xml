@@ -6,7 +6,7 @@
 	<url>http://maven.apache.org</url>
 	
 	<artifactId>game_helper</artifactId>
-	<version>1.0.0.RELEASE</version>
+	<!--<version>1.0.0.RELEASE</version>-->
 	<name>game_helper</name>
 	<packaging>war</packaging>
 

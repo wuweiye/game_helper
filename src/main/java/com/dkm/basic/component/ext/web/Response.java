@@ -38,8 +38,8 @@ public class Response extends HashMap<String, Object> {
 		super.put(ERROR_MSG_KEY, "");
 	}
 
-	private static final String ERROR_CODE_KEY = "errorCode";
-	private static final String ERROR_MSG_KEY = "errorMessage";
+	private static final String ERROR_CODE_KEY = "resultCode";
+	private static final String ERROR_MSG_KEY = "resultMessage";
 
 	public final static int VALID = 0;
 

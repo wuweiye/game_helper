@@ -17,7 +17,7 @@ public class CollectInfoSdk {
 		try {
 			rep = JSONObject.parseObject(collectInfoApi.collectInfo(info),BaseResp.class);
 		} catch (Exception e) {
-			rep.setErrorCode(-1);
+			rep.setResultCode(-1);
 		}
 		return rep;
 	}
