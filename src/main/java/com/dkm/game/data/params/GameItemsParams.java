@@ -17,7 +17,7 @@ public class GameItemsParams extends BaseParams{
     private String desc;
 
     @NotNull(message = "gid 不能为空")
-    private String gid;
+    private Long gid;
 
     @NotNull(message = "路径不能为空")
     private String urlPath;

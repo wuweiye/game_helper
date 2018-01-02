@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class GameLabelReq extends BaseReq{
 
-    private String gid;
+    private Long gid;
 
-    private String lid;
+    private Long lid;
 
     private String labelName;
 

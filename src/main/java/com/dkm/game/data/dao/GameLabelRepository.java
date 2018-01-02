@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface GameLabelRepository extends JpaRepository<GameLabelEntity, String> ,JpaSpecificationExecutor<GameLabelEntity> {
+public interface GameLabelRepository extends JpaRepository<GameLabelEntity, Long> ,JpaSpecificationExecutor<GameLabelEntity> {
 
 
-    public GameLabelEntity findByGidAndLid(String gid,String lid);
+    public GameLabelEntity findByGidAndLid(Long gid,Long lid);
 
 
-    public List<GameLabelEntity> findByGid(String gid);
+    public List<GameLabelEntity> findByGid(Long gid);
 
 
     /*@Query("select gl.lid from  game_label gl where gl.gid = :gid")*/

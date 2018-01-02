@@ -70,7 +70,7 @@ public class Menu2Service {
 	}
 
 	@Transactional
-	private JSONObject validate(Menu2Config config, String[] roles, boolean develop) {
+	JSONObject validate(Menu2Config config, String[] roles, boolean develop) {
 
 		boolean permit = this.menuService.hasRole(roles, config.getRoles(), develop);
 		if (!permit) {

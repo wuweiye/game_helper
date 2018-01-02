@@ -15,15 +15,15 @@ import java.util.List;
 public class BaseReq {
 
 
-    private String id;
+    private Long id;
 
-    private  String status;
+    private  String status = "none";
 
-    private String createTime ;
+    private String createTime = "0";
 
-    private String createBy;
+    private String createBy ="0";
 
-    private String updateTime;
+    private String updateTime = "0";
 
-    private String updateBy;
+    private String updateBy = "0";
 }

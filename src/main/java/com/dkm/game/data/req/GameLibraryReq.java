@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class GameLibraryReq extends BaseReq{
 
 
-    private String gid = null;
+    private Long gid = 0L;
 
     @NotNull(message = "标题不能为空！")
     @Length(max = 60, message = "标题长度不能超过60（包含）！")

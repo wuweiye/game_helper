@@ -40,6 +40,12 @@ public class DataManageService {
     }
 
 
+    /**
+     * 查询游戏列表
+     * @param spec
+     * @param pageable
+     * @return
+     */
     public PageResp<GameLibraryQueryReq> gameLibraryQuery(Specification<GameLibrary> spec, Pageable pageable) {
 
         Page<GameLibrary> gameLibraries = this.gameLibraryRepository.findAll(spec, pageable);
@@ -48,12 +54,12 @@ public class DataManageService {
         for(GameLibrary gl : gameLibraries){
 
             GameLibraryQueryReq req = new GameLibraryQueryReq();
-            req.setGId(gl.getGId());
+            req.setGId(gl.getId()+"");
             req.setName(gl.getName());
             req.setStatus(gl.getStatus());
             req.setUpdateTime(Constants.wholeDateFormat.format(gl.getUpdateTime()));
             //获取游戏资料
-            req.setContent(getDataContent(gl.getGId()));
+            req.setContent(getDataContent(gl.getId()));
             pagesRep.getRows().add(req);
         }
 
@@ -90,7 +96,7 @@ public class DataManageService {
         gameLibrary.setStatus(req.getStatus());
         gameLibrary = this.gameLibraryRepository.saveAndFlush(gameLibrary);
         if(StringUtils.isEmpty(req.getGid())){
-            createRelatedInfo(gameLibrary.getGId(),operator,req);
+            createRelatedInfo(gameLibrary.getId(),operator,req);
         }
 
         return rep;
@@ -101,12 +107,12 @@ public class DataManageService {
      * @param id
      * @param req
      */
-    private void createRelatedInfo(String id, String operator, GameLibraryReq req) {
+    private void createRelatedInfo(Long id, String operator, GameLibraryReq req) {
 
         GameAssessEntity assessEntity = gameAssessRepository.findOne(id);
         if(assessEntity == null){
             assessEntity = new GameAssessEntity();
-            assessEntity.setId(id);
+            assessEntity.setGid(id);
             gameAssessRepository.saveAndFlush(assessEntity);
         }
 
@@ -115,7 +121,7 @@ public class DataManageService {
         if(dataEntity == null){
 
             dataEntity = new GameDataEntity();
-            dataEntity.setId(id);
+            dataEntity.setGid(id);
             dataEntity.setContent(req.getContent());
             gameDataRepository.saveAndFlush(dataEntity);
         }else{
@@ -140,7 +146,7 @@ public class DataManageService {
     }
 
 
-    private String getDataContent(String id){
+    private String getDataContent(Long id){
 
         GameDataEntity gameDataEntity = gameDataRepository.findOne(id);
         if(gameDataEntity != null){
@@ -151,10 +157,10 @@ public class DataManageService {
     }
 
 
-    private void deleteAll(String id){
+    private void deleteAll(Long gid){
 
         //删除资料
-        GameDataEntity gameDataEntity = gameDataRepository.findOne(id);
+        GameDataEntity gameDataEntity = gameDataRepository.findByGid(gid);
         if(gameDataEntity != null){
             gameDataEntity.setStatus(GameEnum.Status.DELETE.getValue());
             gameDataRepository.saveAndFlush(gameDataEntity);
@@ -162,14 +168,14 @@ public class DataManageService {
 
 
         //删除评价
-        GameAssessEntity gameAssessEntity = gameAssessRepository.findOne(id);
+        GameAssessEntity gameAssessEntity = gameAssessRepository.findByGid(gid);
         if (gameAssessEntity != null){
             gameAssessEntity.setStatus(GameEnum.Status.DELETE.getValue());
             gameAssessRepository.saveAndFlush(gameAssessEntity);
         }
 
         //删除游戏
-        GameLibrary gameLibrary = gameLibraryRepository.findOne(id);
+        GameLibrary gameLibrary = gameLibraryRepository.findOne(gid);
         if(gameLibrary != null){
             gameLibrary.setStatus(GameEnum.Status.DELETE.getValue());
             gameLibraryRepository.saveAndFlush(gameLibrary);
@@ -214,7 +220,7 @@ public class DataManageService {
     }
 
 
-    public GameAssessQueryReq gameAssessQuery(String id){
+    public GameAssessQueryReq gameAssessQuery(Long id){
 
         GameAssessQueryReq gameAssessQueryReq = new GameAssessQueryReq();
         GameAssessEntity entity = gameAssessRepository.getOne(id);
@@ -241,7 +247,7 @@ public class DataManageService {
         for(GameLibrary library : gameLibraries){
 
             GameLibraryReq req = new GameLibraryReq();
-            req.setId(library.getGId());
+            req.setId(library.getId());
             req.setName(library.getName());
             resp.getRows().add(req);
         }
@@ -257,7 +263,7 @@ public class DataManageService {
      * 根据gid 获取游戏
      * @param gid
      */
-    public GameLibrary getByGidDetail(String gid){
+    public GameLibrary getByGidDetail(Long gid){
 
         return gameLibraryRepository.getOne(gid);
 
@@ -267,8 +273,8 @@ public class DataManageService {
      * 根据gid 获取游戏评价
      * @param gid
      */
-    public  GameAssessEntity  getGameAssessByGid(String gid){
-        return gameAssessRepository.getOne(gid);
+    public  GameAssessEntity  getGameAssessByGid(Long gid){
+        return gameAssessRepository.findByGid(gid);
     }
 
 
@@ -276,7 +282,7 @@ public class DataManageService {
      * 根据gid 获取游戏资料
      * @param gid
      */
-    public GameDataEntity getGameDataEntityByGid(String gid){
-        return gameDataRepository.getOne(gid);
+    public GameDataEntity getGameDataEntityByGid(Long gid){
+        return gameDataRepository.findByGid(gid);
     }
 }

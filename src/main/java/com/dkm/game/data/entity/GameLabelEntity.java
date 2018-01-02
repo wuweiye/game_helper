@@ -20,9 +20,9 @@ public class GameLabelEntity extends BaseEntity{
 
 
 
-    private String lid;
+    private Long lid;
 
-    private String gid;
+    private Long gid;
 
 
 }

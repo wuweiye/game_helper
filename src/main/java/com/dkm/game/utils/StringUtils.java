@@ -16,4 +16,13 @@ public class StringUtils {
 
         return false;
     }
+
+    public static boolean isEmpty(Long value){
+
+        if(value == null || value == 0){
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class GameAssessUpdateReq extends BaseReq{
 
-    private String id;
+    private Long id;
 
     private String Star;
 

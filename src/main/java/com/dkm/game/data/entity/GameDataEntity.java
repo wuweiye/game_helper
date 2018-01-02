@@ -21,6 +21,8 @@ import java.util.Date;
 public class GameDataEntity extends BaseEntity{
 
 
+    private Long gid;
+
     /**
      * 内容介绍
      */

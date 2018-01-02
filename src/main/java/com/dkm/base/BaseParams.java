@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 public class BaseParams {
 
 
-    private String id;
+    private Long id;
 
-    private String uid;
+    private Long uid;
 
     private String status;
 

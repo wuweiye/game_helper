@@ -15,7 +15,7 @@ public class BaseService {
 
 
 
-    protected UserEntity getUser(String id){
+    protected UserEntity getUser(Long id){
 
         return userDao.getOne(id);
     }

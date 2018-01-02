@@ -1,5 +1,6 @@
 package com.dkm.game.data.entity;
 
+import com.dkm.base.BaseEntity;
 import com.dkm.game.data.myenum.GameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,16 +17,18 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GameLibrary {
+public class GameLibrary extends BaseEntity{
 
-    @Id
+    /*@Id
     @GenericGenerator(name = "uuid", strategy = "uuid.hex")
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "uuid")
-    private String gId;
+    private String gId;*/
+
+
 
     private String name  = "test";
 
-    private String status = GameEnum.Status.VALID.getValue();
+   /* private String status = GameEnum.Status.VALID.getValue();
     private Date updateTime = new Date();
-    private Date createTime = new Date();
+    private Date createTime = new Date();*/
 }

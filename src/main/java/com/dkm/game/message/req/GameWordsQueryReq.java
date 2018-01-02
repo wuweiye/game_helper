@@ -13,12 +13,12 @@ public class GameWordsQueryReq extends BaseReq {
 
 
     @NotNull
-    private String gid;
+    private Long gid;
 
     private String content;
 
     //TODO : 后期改为用户名
-    private String uid;
+    private Long uid;
 
     /**
      * 是否显示

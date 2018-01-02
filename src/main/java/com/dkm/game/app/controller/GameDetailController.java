@@ -9,19 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @RestController
-@RequestMapping(value = "/game/detail/")
+@RequestMapping(value = "/app/game/")
 public class GameDetailController {
 
     @Autowired
     GameDetailService gameDetailService;
 
-    @RequestMapping(value = "get/detail")
-    public ResponseEntity<GameDetailReq> getGameDetail(@RequestParam GameDetailParams params){
+    @RequestMapping(value = "get/detail" ,method = RequestMethod.POST)
+    public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 
         GameDetailReq req = gameDetailService.getDetail(params);
 

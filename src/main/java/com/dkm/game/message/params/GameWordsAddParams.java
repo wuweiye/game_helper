@@ -11,10 +11,10 @@ public class GameWordsAddParams extends BaseParams {
 
 
     @NotNull
-    private String gid;
+    private Long gid;
 
     @NotNull
-    private String uid;
+    private Long uid;
 
     @NotNull
     private String content;

@@ -96,7 +96,7 @@ public class GameItemsService {
         return baseResp;
     }
 
-    public BaseResp delete(String id) {
+    public BaseResp delete(Long id) {
 
         BaseResp baseResp = new BaseResp();
         GameItemsEntity entity = gameItemsRepository.getOne(id);

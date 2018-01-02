@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 public class GameWordsReq extends BaseReq {
 
-    private String gid;
+    private Long gid;
 
     private String content;
 
-    private String uid;
+    private Long uid;
 
 }

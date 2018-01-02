@@ -172,7 +172,7 @@ public class LabelLibraryService {
             gameLabelReq.setLid(gle.getLid());
             gameLabelReq.setStatus(gle.getStatus());
 
-            Constants.sys(gle.getLid());
+            Constants.sys(gle.getLid() +"---");
             gameLabelReq.setCreateBy(Constants.wholeDateFormat.format(gle.getCreateTime()));
 
             GameLibrary gameLibrary = gameLibraryRepository.getOne(gle.getGid());
@@ -222,7 +222,7 @@ public class LabelLibraryService {
      * @param gid
      * @return List<String>
      */
-    public List<String> getByGidLabel(String gid){
+    public List<String> getByGidLabel(Long gid){
 
         List<String> list = new ArrayList<>();
 

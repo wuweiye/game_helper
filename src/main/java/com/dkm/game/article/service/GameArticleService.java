@@ -105,7 +105,7 @@ public class GameArticleService extends BaseService{
      * @param operator
      * @return
      */
-    public BaseResp detele(String id, String operator) {
+    public BaseResp detele(Long id, String operator) {
         BaseResp baseResp = new BaseResp();
 
         GameArticleEntity entity = gameArticleRepository.getOne(id);

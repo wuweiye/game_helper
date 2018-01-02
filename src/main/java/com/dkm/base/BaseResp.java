@@ -13,22 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BaseResp {
 
-	protected int errorCode;
-	protected String errorMessage;
+	protected int resultCode;
+	protected String resultMessage;
 
 	public void error(Throwable error) {
 		if (error instanceof GHException) {
 			GHException e = (GHException) error;
-			this.errorCode = e.getCode() == 0 ? -1 : e.getCode();
-			this.errorMessage = e.getMessage();
+			this.resultCode = e.getCode() == 0 ? -1 : e.getCode();
+			this.resultMessage = e.getMessage();
 		} else if (error instanceof BindException) {
 			BindException be = (BindException) error;
 			String msg = be.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-			this.errorCode = -1;
-			this.errorMessage = msg;
+			this.resultCode = -1;
+			this.resultMessage = msg;
 		} else {
-			this.errorCode = -1;
-			this.errorMessage = error.getMessage();
+			this.resultCode = -1;
+			this.resultMessage = error.getMessage();
 		}
 	}
 

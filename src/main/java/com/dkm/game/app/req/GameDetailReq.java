@@ -21,8 +21,23 @@ public class GameDetailReq extends BaseReq{
 
     public String desc;
 
+
+    private int oneStarNum = 0;
+    private int twoStarNum = 0;
+    private int thereStarNum = 0;
+    private int fourStarNum = 0;
+    private int fiveStarNum = 0;
+
+    private int total;
+
+    private int scale;
+
+
     //TODO:评价list
     public List list;
+
+
+
 
 
 }

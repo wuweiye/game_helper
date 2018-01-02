@@ -11,7 +11,7 @@ public class GameItemsReq extends BaseReq{
 
     private String desc;
 
-    private String gid;
+    private Long gid;
 
     private String gameName;
 

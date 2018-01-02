@@ -70,7 +70,7 @@ public class GameItemsController {
     }
 
     @RequestMapping(value = "delete")
-    public ResponseEntity<BaseResp> delete(@RequestParam String id){
+    public ResponseEntity<BaseResp> delete(@RequestParam Long id){
 
         BaseResp resp = gameItemsService.delete(id);
 

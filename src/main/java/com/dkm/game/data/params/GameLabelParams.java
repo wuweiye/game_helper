@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 public class GameLabelParams extends BaseParams{
 
     @NotNull
-    private String gid;
+    private Long gid;
 
     @NotNull
-    private String lid;
+    private Long lid;
 
 
 
