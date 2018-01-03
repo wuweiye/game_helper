@@ -26,7 +26,7 @@ public class ImageUploadUtil {
     private static List<String> fileTypes = new ArrayList<String>();
 
     static {
-        fileTypes.add(".jpg");
+
         fileTypes.add(".jpeg");
         fileTypes.add(".bmp");
         fileTypes.add(".gif");

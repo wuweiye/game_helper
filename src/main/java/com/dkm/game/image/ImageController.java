@@ -2,8 +2,12 @@ package com.dkm.game.image;
 
 
 import com.dkm.base.Constants;
+import com.dkm.game.utils.FileUtils;
 import com.dkm.game.utils.ImageUploadUtil;
+import com.dkm.game.utils.ImageUtils;
+import com.dkm.game.utils.StringUtils;
 import com.dkm.points.component.Constant;
+import com.sun.imageio.plugins.common.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -15,11 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Iterator;
@@ -35,7 +41,7 @@ public class ImageController {
         this.resourceLoader = resourceLoader;
     }
 
-    public static final String ROOT = "upload";
+    public static final String ROOT = "../upload";
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/show/{filename:.+}")
@@ -67,19 +73,52 @@ public class ImageController {
 
     @RequestMapping(value = "yup2")
     public String handleFileUpload(@RequestParam("urlPath") MultipartFile file,
+                                   @RequestParam("source") String source,
                                    RedirectAttributes redirectAttributes, HttpServletRequest request) {
+
+
+        File folder = new File(ROOT);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        String replayName;
         if (!file.isEmpty()) {
             try {
-                Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
 
+                Constants.sys("-------------start----------------");
+
+                String imageMd5 = FileUtils.getInputStreamDigest(file.getInputStream());
+                Constants.sys("-------------2----------------");
+                String name = file.getOriginalFilename();
+                Constants.sys("------------3----------------");
+                replayName = ImageUtils.getReplayName(name);
+
+
+                Constants.sys("imageMd5:" + imageMd5 +"----name:"+ name +"-----replayName:" + replayName);
+
+                if(StringUtils.isEmpty(source)){
+                    Constants.sys("source is empty");
+                    source = ImageUtils.ITEM;
+                }
+
+                if(imageMd5 != null){
+                    ImageUtils.copy(file.getInputStream(),Paths.get(ROOT, replayName).toString(),source);
+                }
+
+                return Paths.get(ROOT, replayName).toString();
+
+                //Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
             } catch (IOException |RuntimeException e) {
+
+
                 redirectAttributes.addFlashAttribute("message", "Failued to upload " + file.getOriginalFilename() + " => " + e.getMessage());
             }
         } else {
             redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
         }
 
-        return Paths.get(ROOT, file.getOriginalFilename()).toString();
+        return "none";
     }
 
 

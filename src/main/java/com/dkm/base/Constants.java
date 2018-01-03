@@ -13,6 +13,8 @@ public class Constants {
 
     public  static  final SimpleDateFormat hourAndMinuteFormat = new SimpleDateFormat("HH-mm-ss");
 
+    public static final SimpleDateFormat imageNameFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
 
 
     public static void sys(String value){

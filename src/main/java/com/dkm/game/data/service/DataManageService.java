@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -69,11 +71,13 @@ public class DataManageService {
     }
 
     //新增或修改
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public BaseResp addGameLibrary(GameLibraryParams params, String operator) {
 
         BaseResp rep = new BaseResp();
         String status = checkName(params);
+
+        Constants.sys("-----------------------");
 
         GameLibrary gameLibrary;
         if(!StringUtils.isEmpty(params.getGid())){
