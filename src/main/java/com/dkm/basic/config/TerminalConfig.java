@@ -61,7 +61,7 @@ public class TerminalConfig {
 	 * 
 	 * @param currentSessionId
 	 * @param userOid
-	 * @param terminal
+	 * @param terminals
 	 */
 	public void handleMultiLogin(final String currentSessionId, final String userOid, final String... terminals) {
 		this.addLoginUser(userOid);

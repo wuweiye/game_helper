@@ -36,6 +36,7 @@ public class GameDetailService {
         GameAssessEntity gameAssessEntity = dataManageService.getGameAssessByGid(params.getGid());
 
         req.setGameName(gameLibrary.getName());
+        req.setStatus(gameLibrary.getStatus());
         req.setFollowCount(gameDataEntity.getFollowCount());
         req.setDevelopStore(gameDataEntity.getDevelopStore());
         if(gameDataEntity.getUrlPath().equals("none")){

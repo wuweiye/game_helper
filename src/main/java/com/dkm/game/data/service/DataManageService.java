@@ -96,9 +96,13 @@ public class DataManageService {
         gameLibrary.setName(params.getName());
         gameLibrary.setStatus(params.getStatus());
         if(StringUtils.isEmpty(params.getUrlPath())){
-            params.setUrlPath("--");
+            params.setUrlPath("none");
         }
         gameLibrary.setLogoUrl(params.getUrlPath());
+        GameLibrary check = gameLibraryRepository.findByName(params.getName());
+        if(check!=null){
+            return new BaseResp(-1, "重复的标题");
+        }
         gameLibrary = this.gameLibraryRepository.saveAndFlush(gameLibrary);
         if(StringUtils.isEmpty(params.getGid())){
             createRelatedInfo(gameLibrary.getId(),operator,params);

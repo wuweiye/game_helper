@@ -2,8 +2,11 @@ package com.dkm.game.data.controller;
 
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
+import com.dkm.game.app.req.GameDetailReq;
+import com.dkm.game.app.service.GameDetailService;
 import com.dkm.game.data.entity.GameAssessEntity;
 import com.dkm.game.data.entity.GameLibrary;
+import com.dkm.game.data.params.GameDetailParams;
 import com.dkm.game.data.params.GameLibraryParams;
 import com.dkm.game.data.req.GameAssessUpdateReq;
 import com.dkm.game.data.req.GameLibraryQueryReq;
@@ -34,6 +37,9 @@ public class DataManageController extends BaseController {
 
     @Autowired
     DataManageService dataManageService;
+
+    @Autowired
+    GameDetailService gameDetailService;
 
 
 
@@ -95,6 +101,15 @@ public class DataManageController extends BaseController {
     }
 
 
+    @RequestMapping(value = "detail" ,method = RequestMethod.POST)
+    public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
+
+        GameDetailReq req = gameDetailService.getDetail(params);
+
+        return new ResponseEntity<GameDetailReq>(req, HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "test")
     public String test(){
 
@@ -102,5 +117,6 @@ public class DataManageController extends BaseController {
 
         return "ok" ;
     }
+
 
 }

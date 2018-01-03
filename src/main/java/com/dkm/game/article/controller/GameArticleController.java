@@ -87,11 +87,5 @@ public class GameArticleController extends BaseController {
     }
 
 
-    @RequestMapping(value = "detail" ,method = RequestMethod.POST)
-    public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 
-        GameDetailReq req = gameDetailService.getDetail(params);
-
-        return new ResponseEntity<GameDetailReq>(req, HttpStatus.OK);
-    }
 }
