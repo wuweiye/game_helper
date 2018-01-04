@@ -1,6 +1,7 @@
 package com.dkm.boot.controller.app;
 
 
+import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.resp.app.GameDetailReq;
 import com.dkm.service.app.GameDetailService;
 import com.dkm.params.data.GameDetailParams;
@@ -19,7 +20,8 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/app/game/")
-public class GameDetailController {
+public class GameDetailController extends BaseController {
+
 
     @Autowired
     GameDetailService gameDetailService;
@@ -29,7 +31,6 @@ public class GameDetailController {
 
     @RequestMapping(value = "get/detail" ,method = RequestMethod.POST)
     public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
-
 
 
         GameDetailReq req = gameDetailService.getDetail(params);
