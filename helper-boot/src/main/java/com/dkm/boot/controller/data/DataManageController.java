@@ -102,6 +102,7 @@ public class DataManageController extends BaseController {
     @RequestMapping(value = "detail" ,method = RequestMethod.POST)
     public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 
+        System.out.print("================================================ ");
         GameDetailReq req = gameDetailService.getDetail(params);
 
         return new ResponseEntity<GameDetailReq>(req, HttpStatus.OK);

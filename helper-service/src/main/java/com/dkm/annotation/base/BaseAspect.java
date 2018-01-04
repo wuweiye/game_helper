@@ -2,41 +2,71 @@ package com.dkm.annotation.base;
 
 
 import com.alibaba.fastjson.JSON;
+import com.dkm.exception.MyException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 public  abstract class BaseAspect {
 
+    //获取包名
     public String beanName = null;
 
+    //方法名
     public String methodName = null;
 
+    ///redis/save
     public String uri = null;
 
+    //请求ip
     public String remoteAddr = null;
 
     public String method = null;
 
+    public HttpServletRequest request;
+
+
+    public String params;
+
     protected abstract void pointcut();
 
-    /*protected BaseAspect(){}*/
 
-    public void doBefore(JoinPoint joinPoint){}
+    public void doBefore(JoinPoint joinPoint) throws Exception {
 
-    public Object doAround(ProceedingJoinPoint joinPoint){
-        return  null;
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes();
+         request = attributes.getRequest();
+         beanName = joinPoint.getSignature().getDeclaringTypeName();
+         methodName = joinPoint.getSignature().getName();
+         uri = request.getRequestURI();
+         remoteAddr = getIpAddr(request);
+         method = request.getMethod();
+        if ("POST".equals(method)) {
+            Object[] paramsArray = joinPoint.getArgs();
+            params = argsArrayToString(paramsArray);
+        }
+    }
+
+    public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
+
+        return pjp.proceed();
     }
 
     public void doAfter(JoinPoint joinPoint){ }
 
     public void doAfterThrowing(JoinPoint joinPoint, Throwable e){}
 
-    public void afterReturning(Object result){}
+    public void doAfterReturning(Object result){}
 
 
+
+    protected String getKey(){
+        return beanName + methodName;
+    }
 
     /**
      * 获取登录用户远程主机ip地址

@@ -29,11 +29,11 @@ public class StrRedisUtil {
 	
 	public static boolean set(RedisTemplate<String, String> redis, final String key, final Object value){
 		String v;
-		if (value instanceof BaseReq) {
+		/*if (value instanceof BaseReq) {*/
 			v= JSON.toJSONString(value);
-		}else{
+		/*}else{
 			v=value.toString();
-		}
+		}*/
 		final String json=v;
 		return redis.execute(new RedisCallback<Boolean>() {
 
@@ -59,6 +59,21 @@ public class StrRedisUtil {
 					return null;
 				}
 				return new String(data, UTF8CHARSET);
+			}
+		});
+	}
+
+	public static byte[] getByte(RedisTemplate<String, byte[]> redis, final String key){
+		return redis.execute(new RedisCallback<byte[]>() {
+
+			@Override
+			public byte[] doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				byte [] data =connection.get(key.getBytes(UTF8CHARSET));
+				if (data == null) {
+					return null;
+				}
+				return data;
 			}
 		});
 	}
@@ -89,8 +104,8 @@ public class StrRedisUtil {
 	 * 生成短信验证码
 	 * @param redis
 	 * @param key
-	 * @param expire
-	 * @param value
+	 * @param
+	 * @param
 	 * @return
 	 *//*
 	public static boolean setSMSEx(RedisTemplate<String, String> redis, final String key, final int expire, final Object value){

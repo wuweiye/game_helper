@@ -1,6 +1,9 @@
 package com.dkm.boot.controller.app;
 
 
+import com.dkm.admin.operate.system.Sys;
+import com.dkm.annotation.restRedis.RestRedis;
+import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.resp.app.GameDetailReq;
 import com.dkm.service.app.GameDetailService;
@@ -29,12 +32,14 @@ public class GameDetailController extends BaseController {
     @Autowired
     RedisTemplate<String,String> redis;
 
+
+    @RestRedis
     @RequestMapping(value = "get/detail" ,method = RequestMethod.POST)
     public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 
 
+        Constants.sys("===========================================");
         GameDetailReq req = gameDetailService.getDetail(params);
-
 
         return new ResponseEntity<GameDetailReq>(req, HttpStatus.OK);
     }

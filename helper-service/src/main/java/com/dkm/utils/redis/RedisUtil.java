@@ -11,6 +11,8 @@ public class RedisUtil {
 
 	private static final Charset utf8 = Charset.forName("utf8");
 
+
+
 	public static String hget(RedisTemplate<String, String> redis, final String hkey, final String key) {
 		return redis.execute(new RedisCallback<String>() {
 

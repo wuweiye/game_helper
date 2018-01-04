@@ -25,12 +25,11 @@ public class Test2Controller {
     @Autowired
     Test2Service testService;
 
-    @Timer
     @RequestMapping("save")
     public String test(@RequestParam("value") String flag, @RequestParam("time")int time){
 
 
-        Constants.sys("flag"+ flag +"-- time:" + time);
+        Constants.sys("flag"+ flag +"-- time:" + time + this.getClass());
 
         StrRedisUtil.set(redis,key,flag);
         KeyRedisUtil.expire(redis, key, time);
@@ -39,7 +38,6 @@ public class Test2Controller {
     }
 
 
-    @Timer
     @RequestMapping("get")
     public String get(){
 
