@@ -3,9 +3,9 @@ package com.dkm.service.data;
 import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.dao.data.GameAssessRepository;
-import com.dkm.dao.data.GameDataRepository;
-import com.dkm.dao.data.GameLibraryRepository;
+import com.dkm.dao.data.GameAssessDao;
+import com.dkm.dao.data.GameDataDao;
+import com.dkm.dao.data.GameLibraryDao;
 import com.dkm.model.data.GameAssessEntity;
 import com.dkm.model.data.GameDataEntity;
 import com.dkm.model.data.GameLibrary;
@@ -32,17 +32,17 @@ import java.util.List;
 public class DataManageService {
 
     @Autowired
-    GameLibraryRepository gameLibraryRepository;
+    GameLibraryDao gameLibraryDao;
 
     @Autowired
-    GameAssessRepository gameAssessRepository;
+    GameAssessDao gameAssessRepository;
 
     @Autowired
-    GameDataRepository gameDataRepository;
+    GameDataDao gameDataDao;
 
     public void save(GameLibrary gameLibrary){
 
-        gameLibraryRepository.saveAndFlush(gameLibrary);
+        gameLibraryDao.saveAndFlush(gameLibrary);
     }
 
 
@@ -54,7 +54,7 @@ public class DataManageService {
      */
     public PageResp<GameLibraryQueryReq> gameLibraryQuery(Specification<GameLibrary> spec, Pageable pageable) {
 
-        Page<GameLibrary> gameLibraries = this.gameLibraryRepository.findAll(spec, pageable);
+        Page<GameLibrary> gameLibraries = this.gameLibraryDao.findAll(spec, pageable);
 
         PageResp<GameLibraryQueryReq> pagesRep = new PageResp<GameLibraryQueryReq>();
         for(GameLibrary gl : gameLibraries){
@@ -84,7 +84,7 @@ public class DataManageService {
 
         GameLibrary gameLibrary;
         if(!StringUtils.isEmpty(params.getGid())){
-            gameLibrary = this.gameLibraryRepository.findOne(params.getGid());
+            gameLibrary = this.gameLibraryDao.findOne(params.getGid());
             if (gameLibrary == null) {
                 return new BaseResp(-1, "无效的 id");
             }
@@ -106,11 +106,11 @@ public class DataManageService {
             params.setUrlPath("none");
         }
         gameLibrary.setLogoUrl(params.getUrlPath());
-        GameLibrary check = gameLibraryRepository.findByName(params.getName());
+        GameLibrary check = gameLibraryDao.findByName(params.getName());
         if(check!=null){
             return new BaseResp(-1, "重复的标题");
         }
-        gameLibrary = this.gameLibraryRepository.saveAndFlush(gameLibrary);
+        gameLibrary = this.gameLibraryDao.saveAndFlush(gameLibrary);
         if(StringUtils.isEmpty(params.getGid())){
             createRelatedInfo(gameLibrary.getId(),operator,params);
         }
@@ -132,7 +132,7 @@ public class DataManageService {
             gameAssessRepository.saveAndFlush(assessEntity);
         }
 
-        GameDataEntity dataEntity = gameDataRepository.findOne(id);
+        GameDataEntity dataEntity = gameDataDao.findOne(id);
 
         if(dataEntity == null){
 
@@ -141,12 +141,12 @@ public class DataManageService {
             dataEntity.setContent(params.getDesc());
             dataEntity.setDevelopStore(params.getDevelopStore());
             dataEntity.setUrlPath(params.getUrlPath());
-            gameDataRepository.saveAndFlush(dataEntity);
+            gameDataDao.saveAndFlush(dataEntity);
         }else{
             if(!StringUtils.isEmpty(params.getDesc())){
                 dataEntity.setContent(params.getDesc());
                 dataEntity.setUpdateTime(new Date());
-                gameDataRepository.saveAndFlush(dataEntity);
+                gameDataDao.saveAndFlush(dataEntity);
             }
 
         }
@@ -155,7 +155,7 @@ public class DataManageService {
 
     private String checkName(GameLibraryParams params) {
 
-        GameLibrary gameLibrary = this.gameLibraryRepository.findByName(params.getName());
+        GameLibrary gameLibrary = this.gameLibraryDao.findByName(params.getName());
         if(gameLibrary != null){
             return gameLibrary.getStatus();
         }
@@ -166,7 +166,7 @@ public class DataManageService {
 
     private String getDataContent(Long id){
 
-        GameDataEntity gameDataEntity = gameDataRepository.findOne(id);
+        GameDataEntity gameDataEntity = gameDataDao.findOne(id);
         if(gameDataEntity != null){
             return gameDataEntity.getContent();
         }
@@ -178,10 +178,10 @@ public class DataManageService {
     private void deleteAll(Long gid){
 
         //删除资料
-        GameDataEntity gameDataEntity = gameDataRepository.findByGid(gid);
+        GameDataEntity gameDataEntity = gameDataDao.findByGid(gid);
         if(gameDataEntity != null){
             gameDataEntity.setStatus(GameEnum.Status.DELETE.getValue());
-            gameDataRepository.saveAndFlush(gameDataEntity);
+            gameDataDao.saveAndFlush(gameDataEntity);
         }
 
 
@@ -193,10 +193,10 @@ public class DataManageService {
         }
 
         //删除游戏
-        GameLibrary gameLibrary = gameLibraryRepository.findOne(gid);
+        GameLibrary gameLibrary = gameLibraryDao.findOne(gid);
         if(gameLibrary != null){
             gameLibrary.setStatus(GameEnum.Status.DELETE.getValue());
-            gameLibraryRepository.saveAndFlush(gameLibrary);
+            gameLibraryDao.saveAndFlush(gameLibrary);
         }
 
 
@@ -260,7 +260,7 @@ public class DataManageService {
 
         PageResp<GameLibraryReq> resp = new PageResp<GameLibraryReq>();
 
-        List<GameLibrary> gameLibraries = gameLibraryRepository.findByStatus(GameEnum.Status.VALID.getValue());
+        List<GameLibrary> gameLibraries = gameLibraryDao.findByStatus(GameEnum.Status.VALID.getValue());
 
         for(GameLibrary library : gameLibraries){
 
@@ -283,7 +283,7 @@ public class DataManageService {
      */
     public GameLibrary getByGidDetail(Long gid){
 
-        return gameLibraryRepository.getOne(gid);
+        return gameLibraryDao.getOne(gid);
 
     }
 
@@ -301,6 +301,6 @@ public class DataManageService {
      * @param gid
      */
     public GameDataEntity getGameDataEntityByGid(Long gid){
-        return gameDataRepository.findByGid(gid);
+        return gameDataDao.findByGid(gid);
     }
 }

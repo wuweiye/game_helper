@@ -1,4 +1,4 @@
-package com.dkm.model.data;
+package com.dkm.model.image;
 
 import com.dkm.model.base.BaseEntity;
 import lombok.Data;
@@ -9,21 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "game_items")
+@Table(name = "image_record")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class GameItemsEntity extends BaseEntity {
+public class ImageRecordEntity extends BaseEntity {
 
+    String type;
 
+    String imageMD5;
 
+    String imageName;
 
-    private Long gid ;
-
-    private String name ;
-
-    private String description;
-
-    private String urlPath ;
-
+    String urlPath;
 }

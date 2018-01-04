@@ -2,6 +2,7 @@ package com.dkm.model.data;
 
 import com.dkm.model.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "game_data")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class GameDataEntity extends BaseEntity {
 
 

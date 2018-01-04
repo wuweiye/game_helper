@@ -20,7 +20,7 @@ import org.springframework.session.web.http.HttpSessionStrategy;
 import org.springframework.util.StringUtils;
 
 @EnableRedisHttpSession
-public class SessionConfig {
+	public class SessionConfig {
 	@Value("${spring.redis.bhost:#{null}}")
 	private String bHost;
 

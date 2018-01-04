@@ -3,8 +3,8 @@ package com.dkm.service.message;
 import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.dao.message.GameReplyRepository;
-import com.dkm.dao.message.GameWordsRepository;
+import com.dkm.dao.message.GameReplyDao;
+import com.dkm.dao.message.GameWordsDao;
 import com.dkm.dao.user.UserDao;
 import com.dkm.model.message.GameReplyEntity;
 import com.dkm.model.message.GameWordsEntity;
@@ -24,10 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameWordsService {
 
     @Autowired
-    GameWordsRepository gameWordsRepository;
+    GameWordsDao gameWordsDao;
 
     @Autowired
-    GameReplyRepository gameReplyRepository;
+    GameReplyDao gameReplyDao;
 
     @Autowired
     UserDao userDao;
@@ -35,7 +35,7 @@ public class GameWordsService {
 
     public PageResp<GameWordsQueryReq> gameWordsReqPageQuery(Specification<GameWordsEntity> spec, Pageable pageable){
 
-        Page<GameWordsEntity> gameWordsEntities = gameWordsRepository.findAll(spec,pageable);
+        Page<GameWordsEntity> gameWordsEntities = gameWordsDao.findAll(spec,pageable);
         PageResp<GameWordsQueryReq> pageResp = new PageResp<GameWordsQueryReq>();
 
         for(GameWordsEntity entity : gameWordsEntities){
@@ -75,7 +75,7 @@ public class GameWordsService {
             gameWordsEntity.setGid(params.getGid());
             gameWordsEntity.setUid(params.getUid());
             gameWordsEntity.setCreateBy(userEntity.getUserName());
-            gameWordsRepository.saveAndFlush(gameWordsEntity);
+            gameWordsDao.saveAndFlush(gameWordsEntity);
         }
 
         return  resp;
@@ -96,7 +96,7 @@ public class GameWordsService {
             gameReplyEntity.setWid(params.getWid());
             gameReplyEntity.setUid(params.getUid());
             gameReplyEntity.setCreateBy(userEntity.getUserName());
-            gameReplyRepository.saveAndFlush(gameReplyEntity);
+            gameReplyDao.saveAndFlush(gameReplyEntity);
 
         }
         return  resp;

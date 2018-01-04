@@ -2,6 +2,7 @@ package com.dkm.model.user;
 
 import com.dkm.myenum.GameEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @Table(name = "game_user")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class UserEntity {
 
     @Id

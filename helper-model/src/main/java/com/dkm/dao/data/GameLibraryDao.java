@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface GameLibraryRepository extends JpaRepository<GameLibrary, Long> ,JpaSpecificationExecutor<GameLibrary> {
+public interface GameLibraryDao extends JpaRepository<GameLibrary, Long> ,JpaSpecificationExecutor<GameLibrary> {
 
 
     public GameLibrary findByName(String name);

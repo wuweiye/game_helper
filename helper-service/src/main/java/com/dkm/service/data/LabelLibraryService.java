@@ -3,9 +3,9 @@ package com.dkm.service.data;
 import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.dao.data.GameLabelRepository;
-import com.dkm.dao.data.GameLibraryRepository;
-import com.dkm.dao.data.LabelLibraryRepository;
+import com.dkm.dao.data.GameLabelDao;
+import com.dkm.dao.data.GameLibraryDao;
+import com.dkm.dao.data.LabelLibraryDao;
 import com.dkm.model.data.GameLabelEntity;
 import com.dkm.model.data.GameLibrary;
 import com.dkm.model.data.LabelLibraryEntity;
@@ -28,13 +28,13 @@ import java.util.List;
 public class LabelLibraryService {
 
     @Autowired
-    GameLabelRepository gameLabelRepository;
+    GameLabelDao gameLabelDao;
 
     @Autowired
-    LabelLibraryRepository labelLibraryRepository;
+    LabelLibraryDao labelLibraryDao;
 
     @Autowired
-    GameLibraryRepository gameLibraryRepository;
+    GameLibraryDao gameLibraryDao;
 
 
     /**
@@ -45,7 +45,7 @@ public class LabelLibraryService {
      */
     public PageResp<LabelLibraryReq> labelQuery(Specification<LabelLibraryEntity> spec, Pageable pageable) {
 
-        Page<LabelLibraryEntity> labelLibraryEntities = this.labelLibraryRepository.findAll(spec, pageable);
+        Page<LabelLibraryEntity> labelLibraryEntities = this.labelLibraryDao.findAll(spec, pageable);
         PageResp<LabelLibraryReq> pagesRep = new PageResp<LabelLibraryReq>();
         for(LabelLibraryEntity lle : labelLibraryEntities){
 
@@ -73,7 +73,7 @@ public class LabelLibraryService {
         BaseResp rep = new BaseResp();
         LabelLibraryEntity labelLibraryEntity;
         if(!StringUtils.isEmpty(req.getId())){
-            labelLibraryEntity = this.labelLibraryRepository.findOne(req.getId());
+            labelLibraryEntity = this.labelLibraryDao.findOne(req.getId());
             if (labelLibraryEntity == null) {
                 return new BaseResp(-1, "无效的 id");
             }
@@ -88,7 +88,7 @@ public class LabelLibraryService {
 
         labelLibraryEntity.setName(req.getName());
         labelLibraryEntity.setStatus(req.getStatus());
-        this.labelLibraryRepository.save(labelLibraryEntity);
+        this.labelLibraryDao.save(labelLibraryEntity);
 
 
         return rep;
@@ -101,7 +101,7 @@ public class LabelLibraryService {
      */
     private boolean checkName(GameLibraryReq req) {
 
-        LabelLibraryEntity labelLibraryEntity = this.labelLibraryRepository.findByName(req.getName());
+        LabelLibraryEntity labelLibraryEntity = this.labelLibraryDao.findByName(req.getName());
         if(labelLibraryEntity != null){
             return true;
         }
@@ -123,7 +123,7 @@ public class LabelLibraryService {
         GameLabelEntity entity;
         if(!StringUtils.isEmpty(params.getId())){
 
-            entity = gameLabelRepository.findOne(params.getId());
+            entity = gameLabelDao.findOne(params.getId());
             if(entity == null){
                 return  new BaseResp(-1,"找不到对应Id");
             }
@@ -144,7 +144,7 @@ public class LabelLibraryService {
         entity.setLid(params.getLid());
         entity.setStatus(params.getStatus());
 
-        gameLabelRepository.saveAndFlush(entity);
+        gameLabelDao.saveAndFlush(entity);
 
         return  rep;
     }
@@ -152,7 +152,7 @@ public class LabelLibraryService {
 
     private GameLabelEntity getByGidAndLid(GameLabelParams req) {
 
-        return gameLabelRepository.findByGidAndLid(req.getGid(),req.getLid());
+        return gameLabelDao.findByGidAndLid(req.getGid(),req.getLid());
     }
 
     /**
@@ -162,7 +162,7 @@ public class LabelLibraryService {
      * @return
      */
     public PageResp<GameLabelReq> gameLabelQuery(Specification<GameLabelEntity> spec, Pageable pageable) {
-        Page<GameLabelEntity> gameLabelEntities = this.gameLabelRepository.findAll(spec, pageable);
+        Page<GameLabelEntity> gameLabelEntities = this.gameLabelDao.findAll(spec, pageable);
         PageResp<GameLabelReq> pagesRep = new PageResp<GameLabelReq>();
         for(GameLabelEntity gle : gameLabelEntities){
 
@@ -175,12 +175,12 @@ public class LabelLibraryService {
             Constants.sys(gle.getLid() +"---");
             gameLabelReq.setCreateBy(Constants.wholeDateFormat.format(gle.getCreateTime()));
 
-            GameLibrary gameLibrary = gameLibraryRepository.getOne(gle.getGid());
+            GameLibrary gameLibrary = gameLibraryDao.getOne(gle.getGid());
             if(gameLibrary!=null){
                 gameLabelReq.setGameName(gameLibrary.getName());
             }
 
-            LabelLibraryEntity labelLibraryEntity = labelLibraryRepository.getOne(gle.getLid());
+            LabelLibraryEntity labelLibraryEntity = labelLibraryDao.getOne(gle.getLid());
             if(labelLibraryEntity != null){
                 gameLabelReq.setLabelName(labelLibraryEntity.getName());
             }
@@ -204,7 +204,7 @@ public class LabelLibraryService {
 
         PageResp<LabelLibraryReq> resp = new PageResp<LabelLibraryReq>();
 
-        List<LabelLibraryEntity> labelLibraryEntities = labelLibraryRepository.findAll();
+        List<LabelLibraryEntity> labelLibraryEntities = labelLibraryDao.findAll();
         for(LabelLibraryEntity entity :labelLibraryEntities){
 
             LabelLibraryReq labelLibraryReq = new LabelLibraryReq();
@@ -226,9 +226,9 @@ public class LabelLibraryService {
 
         List<String> list = new ArrayList<String>();
 
-        List<GameLabelEntity> gameLabelEntityList = gameLabelRepository.findByGid(gid);
+        List<GameLabelEntity> gameLabelEntityList = gameLabelDao.findByGid(gid);
         for (GameLabelEntity labelEntity : gameLabelEntityList){
-            LabelLibraryEntity labelLibraryEntity = labelLibraryRepository.getOne(labelEntity.getLid());
+            LabelLibraryEntity labelLibraryEntity = labelLibraryDao.getOne(labelEntity.getLid());
             list.add(labelLibraryEntity.getName());
         }
 
@@ -242,25 +242,25 @@ public class LabelLibraryService {
     public void test(){
 
         /*try {
-            Constants.sys(gameLabelRepository.getLid("402881eb60303c990160303e45280003"));
+            Constants.sys(gameLabelDao.getLid("402881eb60303c990160303e45280003"));
         } catch (Exception e) {
             Constants.sys("1 error");
         }
 
         try {
-            Constants.sys(gameLabelRepository.getLid2("402881eb60303c990160303e45280003"));
+            Constants.sys(gameLabelDao.getLid2("402881eb60303c990160303e45280003"));
         } catch (Exception e) {
             Constants.sys("2 error");
         }
 
         try {
-            Constants.sys(gameLabelRepository.getLid3("402881eb60303c990160303e45280003"));
+            Constants.sys(gameLabelDao.getLid3("402881eb60303c990160303e45280003"));
         } catch (Exception e) {
             Constants.sys("3 error");
         }
 
         try {
-            Constants.sys(gameLabelRepository.getLid4("402881eb60303c990160303e45280003"));
+            Constants.sys(gameLabelDao.getLid4("402881eb60303c990160303e45280003"));
         } catch (Exception e) {
             Constants.sys("4 error");
         }*/

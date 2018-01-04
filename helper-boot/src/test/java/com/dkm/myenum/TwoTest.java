@@ -1,7 +1,7 @@
 package com.dkm.myenum;
 
 
-import com.dkm.dao.data.GameLibraryRepository;
+import com.dkm.dao.data.GameLibraryDao;
 import com.dkm.model.data.GameLibrary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TwoTest {
 
     @Autowired
-    GameLibraryRepository gameLibraryRepository;
+    GameLibraryDao gameLibraryDao;
 
 
     @Test
@@ -22,7 +22,7 @@ public class TwoTest {
 
         GameLibrary gameLibrary = new GameLibrary();
         gameLibrary.setName("12354343");
-        gameLibraryRepository.saveAndFlush(gameLibrary);
+        gameLibraryDao.saveAndFlush(gameLibrary);
 
     }
 

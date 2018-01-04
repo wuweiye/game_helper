@@ -1,9 +1,9 @@
 package com.dkm.message;
 
 import com.dkm.base.Constants;
-import com.dkm.dao.data.GameItemsRepository;
+import com.dkm.dao.data.GameItemsDao;
 import com.dkm.model.data.GameItemsEntity;
-import com.dkm.dao.message.GameReplyRepository;
+import com.dkm.dao.message.GameReplyDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +20,11 @@ import java.util.Date;
 public class GameWordsTest {
 
     @Autowired
-    GameReplyRepository gameReplyRepository;
+    GameReplyDao gameReplyDao;
 
 
     @Autowired
-    GameItemsRepository gameItemsRepository;
+    GameItemsDao gameItemsDao;
 
     public static Long start ,end;
 
@@ -50,7 +50,7 @@ public class GameWordsTest {
         GameItemsEntity gameItemsEntity = new GameItemsEntity();
 
 
-        gameItemsRepository.saveAndFlush(gameItemsEntity);
+        gameItemsDao.saveAndFlush(gameItemsEntity);
 
     }
 

@@ -4,7 +4,7 @@ import com.dkm.model.data.LabelLibraryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface LabelLibraryRepository extends JpaRepository<LabelLibraryEntity, Long> ,JpaSpecificationExecutor<LabelLibraryEntity> {
+public interface LabelLibraryDao extends JpaRepository<LabelLibraryEntity, Long> ,JpaSpecificationExecutor<LabelLibraryEntity> {
     public LabelLibraryEntity findByName(String name);
 
 

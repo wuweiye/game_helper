@@ -3,8 +3,8 @@ package com.dkm.service.data;
 import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.dao.data.GameItemsRepository;
-import com.dkm.dao.data.GameLibraryRepository;
+import com.dkm.dao.data.GameItemsDao;
+import com.dkm.dao.data.GameLibraryDao;
 import com.dkm.model.data.GameItemsEntity;
 import com.dkm.myenum.GameEnum;
 import com.dkm.params.data.GameItemsParams;
@@ -22,22 +22,22 @@ import java.util.Date;
 public class GameItemsService {
 
     @Autowired
-    GameItemsRepository gameItemsRepository;
+    GameItemsDao gameItemsDao;
 
     @Autowired
-    GameLibraryRepository gameLibraryRepository;
+    GameLibraryDao gameLibraryDao;
 
 
     public void save(){
         GameItemsEntity gameItemsEntity = new GameItemsEntity();
-        gameItemsRepository.saveAndFlush(gameItemsEntity);
+        gameItemsDao.saveAndFlush(gameItemsEntity);
     }
 
     public PageResp<GameItemsReq> query(Specification<GameItemsEntity> spec, Pageable pageable) {
 
         PageResp<GameItemsReq> resp = new PageResp<GameItemsReq>();
 
-        Page<GameItemsEntity> gameItemsEntities = gameItemsRepository.findAll(spec, pageable);
+        Page<GameItemsEntity> gameItemsEntities = gameItemsDao.findAll(spec, pageable);
 
         for(GameItemsEntity entity : gameItemsEntities){
             GameItemsReq req = new GameItemsReq();
@@ -47,7 +47,7 @@ public class GameItemsService {
             req.setDesc(entity.getDescription());
 
             req.setGid(entity.getGid());
-            req.setGameName(gameLibraryRepository.getOne(entity.getGid()).getName());
+            req.setGameName(gameLibraryDao.getOne(entity.getGid()).getName());
             req.setName(entity.getName());
             req.setUrlPath(entity.getUrlPath());
             req.setDesc(entity.getDescription());
@@ -73,7 +73,7 @@ public class GameItemsService {
         GameItemsEntity entity;
         if(!StringUtils.isEmpty(params.getId())){
 
-            entity = gameItemsRepository.getOne(params.getId());
+            entity = gameItemsDao.getOne(params.getId());
             if(entity == null){
                 return new BaseResp(-1, "无此资料");
             }
@@ -91,7 +91,7 @@ public class GameItemsService {
         }
 
 
-        gameItemsRepository.saveAndFlush(entity);
+        gameItemsDao.saveAndFlush(entity);
 
         return baseResp;
     }
@@ -99,12 +99,12 @@ public class GameItemsService {
     public BaseResp delete(Long id) {
 
         BaseResp baseResp = new BaseResp();
-        GameItemsEntity entity = gameItemsRepository.getOne(id);
+        GameItemsEntity entity = gameItemsDao.getOne(id);
         if(entity == null){
             return new BaseResp(-1, "无此资料");
         }
         entity.setStatus(GameEnum.Status.DELETE.getValue());
-        gameItemsRepository.saveAndFlush(entity);
+        gameItemsDao.saveAndFlush(entity);
 
         return baseResp;
     }

@@ -2,6 +2,7 @@ package com.dkm.model.game;
 
 import com.dkm.model.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "game_article")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class GameArticleEntity extends BaseEntity {
 
 

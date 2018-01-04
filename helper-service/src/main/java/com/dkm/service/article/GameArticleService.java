@@ -4,7 +4,7 @@ package com.dkm.service.article;
 import com.dkm.base.Constants;
 import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
-import com.dkm.dao.data.GameLibraryRepository;
+import com.dkm.dao.data.GameLibraryDao;
 import com.dkm.dao.game.GameArticleDao;
 import com.dkm.model.game.GameArticleEntity;
 import com.dkm.myenum.GameEnum;
@@ -27,7 +27,7 @@ public class GameArticleService extends BaseService {
     GameArticleDao gameArticleRepository;
 
     @Autowired
-    GameLibraryRepository gameLibraryRepository;
+    GameLibraryDao gameLibraryDao;
 
 
     /**
@@ -46,7 +46,7 @@ public class GameArticleService extends BaseService {
             gameArticleReq.setId(ga.getId());
             gameArticleReq.setGid(ga.getGid());
             gameArticleReq.setStatus(ga.getStatus());
-            gameArticleReq.setGameName(gameLibraryRepository.getOne(ga.getGid()).getName());
+            gameArticleReq.setGameName(gameLibraryDao.getOne(ga.getGid()).getName());
             gameArticleReq.setContent(ga.getContent());
             gameArticleReq.setCreateBy(ga.getCreateBy());
             gameArticleReq.setCreateTime(Constants.wholeDateFormat.format(ga.getCreateTime()));

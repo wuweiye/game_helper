@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface GameLabelRepository extends JpaRepository<GameLabelEntity, Long> ,JpaSpecificationExecutor<GameLabelEntity> {
+public interface GameLabelDao extends JpaRepository<GameLabelEntity, Long> ,JpaSpecificationExecutor<GameLabelEntity> {
 
 
     public GameLabelEntity findByGidAndLid(Long gid, Long lid);
