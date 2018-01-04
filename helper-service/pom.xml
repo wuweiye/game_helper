@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <url>http://maven.apache.org</url>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>helper-service</artifactId>
+    <version>0.0.1-RELEASE</version>
+    <name>helper-service</name>
+    <groupId>com.dkm</groupId>
+
+    <!--<parent>
+        <artifactId>helper.parent</artifactId>
+        <groupId>com.dkm</groupId>
+        <version>0.0.1-RELEASE</version>
+    </parent>-->
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.dkm</groupId>
+            <artifactId>helper.model</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.dkm</groupId>
+                                    <artifactId>helper.model</artifactId>
+                                    <version>1.0.0.RELEASE</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>./target/classes</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
