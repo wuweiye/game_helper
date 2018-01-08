@@ -14,6 +14,10 @@ public class GameLibraryQueryReq extends BaseReq{
 
     private String content;
 
+    private Integer followCount;
+
+    private String assess;
+
 
 
 }

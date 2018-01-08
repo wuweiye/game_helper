@@ -65,8 +65,7 @@ public class ImageController {
 
     @RequestMapping(value = "yup2")
     public String handleFileUpload(@RequestParam("urlPath") MultipartFile file,
-                                   @RequestParam("source") String source,
-                                    HttpServletRequest request) {
+                                   @RequestParam("source") String source) {
 
         return imageService.upload(file,source);
     }

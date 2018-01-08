@@ -64,8 +64,15 @@ public class DataManageService {
             req.setName(gl.getName());
             req.setStatus(gl.getStatus());
             req.setUpdateTime(Constants.wholeDateFormat.format(gl.getUpdateTime()));
-            //获取游戏资料
-            req.setContent(getDataContent(gl.getId()));
+
+            GameDataEntity gameDataEntity = getGameDataEntityByGid(gl.getId());
+
+            req.setContent(gameDataEntity.getContent());
+            req.setFollowCount(gameDataEntity.getFollowCount());
+
+            GameAssessEntity gameAssessEntity = getGameAssessByGid(gl.getId());
+            req.setAssess("7.0");
+
             pagesRep.getRows().add(req);
         }
 

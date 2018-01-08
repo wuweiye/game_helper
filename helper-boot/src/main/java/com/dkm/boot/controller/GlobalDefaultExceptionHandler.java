@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+/*@ControllerAdvice*/
 public class GlobalDefaultExceptionHandler {
 
 
 
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
+    /*@ResponseBody
+    @ExceptionHandler(value = Exception.class)*/
     public String defaultExceptionHandle(HttpServletRequest req, Exception e){
 
 
