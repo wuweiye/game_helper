@@ -1,5 +1,6 @@
 package com.dkm.boot.controller.app;
 
+import com.dkm.annotation.restRedis.RestRedis;
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.model.data.GameLibrary;
 import com.dkm.resp.data.GameLibraryQueryReq;
@@ -29,6 +30,7 @@ public class GameManageController {
     @Autowired
     DataManageService dataManageService;
 
+    @RestRedis(desc = "list")
     @RequestMapping(value = "get/games")
     @ResponseBody
     public ResponseEntity<PageResp<GameLibraryQueryReq>> query(HttpServletRequest request,
@@ -44,4 +46,7 @@ public class GameManageController {
 
         return new ResponseEntity<PageResp<GameLibraryQueryReq>>(rep, HttpStatus.OK);
     }
+
+
+
 }

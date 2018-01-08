@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Mapping
 public @interface RestRedis {
 
-    String desc() default "";
+    String desc() default "String";
 }

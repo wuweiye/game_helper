@@ -33,9 +33,10 @@ public class TestService {
     @EventListener
     public void OnListener(TestEvent event){
 
-        for(int i = 0; i < 10; i++){
-            System.out.println("Listener"+i);
-        }
+        int i = 99999;
+       while (i > 0){
+           System.out.println(i --);
+       }
         System.out.println("Listener");
     }
 }

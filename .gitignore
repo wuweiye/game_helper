@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/
+helper-admin/helper-admin.iml
+helper-boot/helper-boot.iml
+helper-model/helper.model.iml
+helper-service/helper-service.iml
+helper.parent.iml

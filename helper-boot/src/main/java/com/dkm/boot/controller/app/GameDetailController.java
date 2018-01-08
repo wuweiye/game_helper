@@ -33,7 +33,6 @@ public class GameDetailController extends BaseController {
     RedisTemplate<String,String> redis;
 
 
-    @RestRedis
     @RequestMapping(value = "get/detail" ,method = RequestMethod.POST)
     public ResponseEntity<GameDetailReq> getGameDetail(@Valid GameDetailParams params){
 

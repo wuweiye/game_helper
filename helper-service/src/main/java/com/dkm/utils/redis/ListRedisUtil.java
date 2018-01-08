@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ListRedisUtil {
@@ -55,5 +56,31 @@ public class ListRedisUtil {
 			}
 
 		});
+	}
+
+	public static boolean setList(RedisTemplate<String, String> redis, final String key, List list){
+
+
+		redis.opsForList().rightPushAll(key, list);
+
+		return true;
+	}
+
+
+	public static List getList(RedisTemplate<String, String> redis , String key ,int start, int end){
+
+		return redis.opsForList().range(key,start,end);
+	}
+
+	public static Boolean setRightPush(RedisTemplate<String, String> redis, String key,String value){
+
+		redis.opsForList().rightPush(key,value);
+
+		return true;
+	}
+
+	public static String getIndex(RedisTemplate<String, String> redis, String key, int index){
+
+		return redis.opsForList().index(key,index);
 	}
 }
