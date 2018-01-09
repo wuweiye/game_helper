@@ -103,9 +103,10 @@ public  abstract class BaseAspect {
                     spec = object;
                     log.info("222222222222222222222222222");
                 }
-                this.rows = (int) paramsArray[paramsArray.length - 1];
 
-                this.page = (int) paramsArray[paramsArray.length - 2];
+                /*this.rows = (int) paramsArray[paramsArray.length - 1];
+
+                this.page = (int) paramsArray[paramsArray.length - 2];*/
                 log.info("page :"  + page);
             }
 

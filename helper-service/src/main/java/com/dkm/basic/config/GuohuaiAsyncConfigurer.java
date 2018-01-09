@@ -19,7 +19,7 @@ public class GuohuaiAsyncConfigurer implements AsyncConfigurer {
 	@Value("${async.pool.size:20}")
 	private int asyncPoolSize = 20;
 
-	@Override
+
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 		taskExecutor.setMaxPoolSize(this.asyncPoolSize);
@@ -28,7 +28,7 @@ public class GuohuaiAsyncConfigurer implements AsyncConfigurer {
 		return taskExecutor;
 	}
 
-	@Override
+
 	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
 		return new SimpleAsyncUncaughtExceptionHandler();
 	}
