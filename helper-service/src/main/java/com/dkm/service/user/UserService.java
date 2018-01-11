@@ -32,9 +32,12 @@ public class UserService {
             return new BaseResp(-1,"登录失败");
         }
 
+
         Map<String,String > map = new HashMap<String, String>();
         map.put("userName",entity.getUserName());
         map.put("key", Constants.wholeDateFormat.format(new Date()));
+
+        
 
 
 

@@ -103,7 +103,7 @@ public class BaseController {
 		session.setAttribute(UID, userOid);
 		session.setAttribute(UNAME, userName);
 		terminalConfig.handleMultiLogin(session.getId(), userOid, terminal);
-		logger.info("useroid {},userName {} login, and sessionid is {}.", userOid, userName, session.getId());
+		//logger.info("useroid {},userName {} login, and sessionid is {}.", userOid, userName, session.getId());
 	}
 
 	protected String getLoginUser() {
