@@ -1,5 +1,6 @@
 package com.dkm.model.user;
 
+import com.dkm.model.base.BaseEntity;
 import com.dkm.myenum.GameEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,15 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class UserEntity {
-
-    @Id
-    @GenericGenerator(name = "uuid", strategy = "uuid.hex")
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "uuid")
-    private String id;
-
-
-    private String status = GameEnum.Status.VALID.getValue();
+public class UserEntity  extends BaseEntity{
 
 
     private String userName;
@@ -36,10 +29,6 @@ public class UserEntity {
     private String regIp;
 
 
-    private Date updateTime = new Date();
-    private Date createTime = new Date();
-    private String createBy = "0";
-    private String updateBy = "0";
 
 
 }
