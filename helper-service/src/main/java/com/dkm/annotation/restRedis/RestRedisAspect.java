@@ -105,7 +105,7 @@ public class RestRedisAspect extends BaseAspect{
             }
 
 
-            int i =1;
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

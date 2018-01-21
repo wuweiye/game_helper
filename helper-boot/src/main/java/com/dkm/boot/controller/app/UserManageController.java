@@ -2,6 +2,7 @@ package com.dkm.boot.controller.app;
 
 import com.dkm.basic.component.ext.web.BaseController;
 import com.dkm.basic.component.ext.web.BaseResp;
+import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.resp.user.LoginResp;
 import com.dkm.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,14 @@ public class UserManageController extends BaseController {
     UserService userService;
 
     @RequestMapping("login")
-    public ResponseEntity<LoginResp> login(@RequestParam(required = false,name = "name")String name){
+    public ResponseEntity<PageResp<LoginResp>> login(@RequestParam(required = false,name = "name")String name ,
+                                          @RequestParam(required = false,name = "pwd")String pwd){
 
         BaseResp baseResp = new BaseResp();
 
-        LoginResp loginResp = userService.login(name,name,super.request.getRemoteAddr() + ":" + super.request.getRemotePort());
+        PageResp<LoginResp> rep = userService.login(name,pwd,super.request.getRemoteAddr() + ":" + super.request.getRemotePort());
 
-        return new ResponseEntity<LoginResp>(loginResp, HttpStatus.OK);
+        return new ResponseEntity<PageResp<LoginResp>>(rep, HttpStatus.OK);
     }
 
     @RequestMapping("register")

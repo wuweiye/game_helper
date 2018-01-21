@@ -30,7 +30,7 @@ public class GameManageController {
     @Autowired
     DataManageService dataManageService;
 
-    @RestRedis(desc = "list")
+
     @RequestMapping(value = "get/games")
     @ResponseBody
     public ResponseEntity<PageResp<GameLibraryQueryReq>> query(HttpServletRequest request,
