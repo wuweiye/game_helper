@@ -1,11 +1,7 @@
-package com.dkm.boot.controller.article;
+package com.dkm.boot.controller.app;
 
-import com.dkm.basic.component.ext.web.BaseController;
-import com.dkm.basic.component.ext.web.BaseResp;
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.model.game.GameArticleEntity;
-import com.dkm.service.app.GameDetailService;
-import com.dkm.params.article.GameArticleParams;
 import com.dkm.resp.article.GameArticleReq;
 import com.dkm.service.article.GameArticleService;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -25,22 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
-@RequestMapping(value = "/game/article/manage/")
 @RestController
-public class GameArticleController extends BaseController {
+@RequestMapping("app/article")
+public class GameArticleController {
 
     @Autowired
     GameArticleService gameArticleService;
 
-
-    @RequestMapping(value = "query", method = RequestMethod.POST)
+    @RequestMapping(value = "get", method = RequestMethod.POST)
     public ResponseEntity<PageResp<GameArticleReq>> query(HttpServletRequest request,
                                                           @And({@Spec(params = "gid", path = "gid", spec = Equal.class),
-                                                                     @Spec(params = "title", path = "title", spec = Like.class),
-                                                                     @Spec(params = "status", path = "status", spec = Equal.class)})
-                                                                     Specification<GameArticleEntity> spec,
+                                                                  @Spec(params = "title", path = "title", spec = Like.class),
+                                                                  @Spec(params = "status", path = "status", spec = Equal.class)})
+                                                                  Specification<GameArticleEntity> spec,
                                                           @RequestParam int page,
                                                           @RequestParam int rows){
 
@@ -49,39 +43,4 @@ public class GameArticleController extends BaseController {
 
         return new ResponseEntity<PageResp<GameArticleReq>>(rep, HttpStatus.OK);
     }
-
-
-
-    @RequestMapping(value = "add")
-    public ResponseEntity<BaseResp> add(@Valid GameArticleParams params){
-
-
-        String operator = super.getLoginUser();
-        BaseResp resp = gameArticleService.add(params,operator);
-
-        return new ResponseEntity<BaseResp>(resp,HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "update")
-    public ResponseEntity<BaseResp> update(@Valid GameArticleParams params){
-
-        String operator = super.getLoginUser();
-        BaseResp resp = gameArticleService.add(params,operator);
-
-        return new ResponseEntity<BaseResp>(resp,HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "delete")
-    public ResponseEntity<BaseResp> delete(@RequestParam Long id){
-
-        String operator = super.getLoginUser();
-        BaseResp resp = gameArticleService.detele(id,operator);
-
-        return new ResponseEntity<BaseResp>(resp,HttpStatus.OK);
-    }
-
-
-
 }
