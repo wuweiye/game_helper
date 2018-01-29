@@ -16,6 +16,7 @@ import com.dkm.resp.data.GameAssessQueryReq;
 import com.dkm.resp.data.GameAssessUpdateReq;
 import com.dkm.resp.data.GameLibraryQueryReq;
 import com.dkm.resp.data.GameLibraryReq;
+import com.dkm.service.app.GameDetailService;
 import com.dkm.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,9 @@ public class DataManageService {
 
     @Autowired
     GameDataDao gameDataDao;
+
+    @Autowired
+    GameDetailService gameDetailService;
 
     public void save(GameLibrary gameLibrary){
 
