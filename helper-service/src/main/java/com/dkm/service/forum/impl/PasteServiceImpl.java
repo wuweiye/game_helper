@@ -6,11 +6,18 @@ import com.dkm.dao.forum.PasteDao;
 
 import com.dkm.event.ForumsEventService;
 import com.dkm.model.forum.Paste;
+import com.dkm.model.forum.ReplyMain;
+import com.dkm.model.user.UserEntity;
 import com.dkm.myenum.GameEnum;
 import com.dkm.params.forum.PasteParams;
+import com.dkm.resp.app.PasteDetailReq;
+import com.dkm.resp.app.PasteReq;
 import com.dkm.service.forum.PasteService;
+import com.dkm.service.forum.ReplyMainService;
+import com.dkm.service.user.UserService;
 import com.dkm.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -26,8 +33,14 @@ public class PasteServiceImpl implements PasteService{
     @Autowired
     ForumsEventService forumsEventService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ReplyMainService replyMainService;
+
     @Override
-    public void save(PasteParams params) {
+    public BaseResp save(PasteParams params) {
         Paste paste;
 
         if(StringUtils.isEmpty(params.getUid())){
@@ -48,6 +61,7 @@ public class PasteServiceImpl implements PasteService{
         forumsEventService.onAddManageEvent(paste.getId(),"paste");
 
 
+        return new BaseResp();
     }
 
     @Override
@@ -78,6 +92,8 @@ public class PasteServiceImpl implements PasteService{
             paste.setStatus(GameEnum.Status.DELETE.getValue());
             pasteDao.saveAndFlush(paste);
 
+
+
         }
 
     }
@@ -90,9 +106,68 @@ public class PasteServiceImpl implements PasteService{
     }
 
 
+    /**
+     * 查询发帖数
+     * @param spec
+     * @param pageable
+     * @return
+     */
+    @Override
+    public PageResp<PasteReq> replyMainQuery(Specification<Paste> spec, Pageable pageable) {
+
+        PageResp<PasteReq> resp = new PageResp<PasteReq>();
+        Page<Paste> pastes = pasteDao.findAll(spec, pageable);
+
+        for(Paste paste : pastes){
+            PasteReq req = new PasteReq();
+            req.setId(paste.getId());
+            req.setTitle(paste.getTitle());
+            req.setContent(paste.getContent());
+            req.setFollowNum(paste.getGoodNum());
+            req.setReplyNum(paste.getReplyNum());
+
+            UserEntity userEntity = userService.getUser(paste.getUid());
+            req.setAuthor(userEntity.getUserName());
+
+            resp.getRows().add(req);
+        }
+
+        resp.setTotal(pastes.getTotalElements());
+
+        return resp;
+    }
+
+
 
     @Override
-    public PageResp<Paste> replyMainQuery(Specification<Paste> spec, Pageable pageable) {
+    public Paste getPasteById(Long id) {
+        return pasteDao.getOne(id);
+    }
+
+
+
+
+    @Override
+    public PageResp<PasteDetailReq> getPasteDetail(Long id) {
+
+        PageResp<PasteDetailReq> resp = new PageResp<PasteDetailReq>();
+
+        Paste paste = pasteDao.getOne(id);
+        if(paste == null){
+            return resp;
+        }
+
+        List<ReplyMain> replyMains = replyMainService.getReplays(paste.getId());
+
+        for(ReplyMain replyMain : replyMains){
+            PasteDetailReq pasteReq = new PasteDetailReq();
+            UserEntity userEntity = userService.getUser(replyMain.getUid());
+            pasteReq.setAuthor(userEntity.getUserName());
+            pasteReq.setContent(replyMain.getContent());
+            pasteReq.setReplyNum(replyMain.getReplyNum());
+
+        }
+
         return null;
     }
 }

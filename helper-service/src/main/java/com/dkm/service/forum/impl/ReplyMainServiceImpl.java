@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReplyMainServiceImpl implements ReplyMainService {
 
@@ -93,6 +95,11 @@ public class ReplyMainServiceImpl implements ReplyMainService {
 
 
         return rep;
+    }
+
+    @Override
+    public List<ReplyMain> getReplays(Long pid) {
+        return replyMainDao.findBypPid(pid);
     }
 
 

@@ -61,11 +61,21 @@ public class ForumsListener {
 
         }else if(event.getType().equals("paste")){
 
+            pasteAddAfter(event.getId());
+
         }else if(event.getType().equals("replyMain")){
 
         }else if(event.getType().equals("replyBranch")){
 
         }
+
+    }
+
+
+    private void pasteAddAfter(Long id) {
+
+        Paste paste = pasteService.getPasteById(id);
+        forumsService.replyNumAdd(paste.getFid());
 
     }
 

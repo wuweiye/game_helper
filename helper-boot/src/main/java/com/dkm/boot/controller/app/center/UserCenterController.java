@@ -1,4 +1,4 @@
-package com.dkm.boot.controller.app;
+package com.dkm.boot.controller.app.center;
 
 import com.dkm.basic.component.ext.web.PageResp;
 import com.dkm.resp.user.LoginResp;

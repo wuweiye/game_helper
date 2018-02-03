@@ -22,5 +22,7 @@ public class ReplyMain extends BaseEntity{
 
     String content;
 
+    Integer replyNum;
+
 
 }
