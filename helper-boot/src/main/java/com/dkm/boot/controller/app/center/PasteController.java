@@ -6,6 +6,7 @@ import com.dkm.model.forum.Forums;
 import com.dkm.model.forum.Paste;
 import com.dkm.params.forum.PasteParams;
 import com.dkm.resp.app.ForumReq;
+import com.dkm.resp.app.PasteDetailReq;
 import com.dkm.resp.app.PasteReq;
 import com.dkm.service.forum.PasteService;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -56,7 +57,7 @@ public class PasteController {
     public ResponseEntity<PageResp<PasteReq>> getDetail(@RequestParam Long id) {
 
 
-        PageResp<PasteReq> rep = pasteService.getPasteDetail(id);
+        PageResp<PasteDetailReq> rep = pasteService.getPasteDetail(id);
 
         return null;
 

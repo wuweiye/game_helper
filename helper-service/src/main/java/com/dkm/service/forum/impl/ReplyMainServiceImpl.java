@@ -20,7 +20,6 @@ import java.util.List;
 @Service
 public class ReplyMainServiceImpl implements ReplyMainService {
 
-
     @Autowired
     ReplyMainDao replyMainDao;
 
@@ -99,7 +98,7 @@ public class ReplyMainServiceImpl implements ReplyMainService {
 
     @Override
     public List<ReplyMain> getReplays(Long pid) {
-        return replyMainDao.findBypPid(pid);
+        return replyMainDao.findByPid(pid);
     }
 
 

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface ReplyMainDao extends JpaRepository<ReplyMain, Long >, JpaSpecificationExecutor<ReplyMain> {
+public interface ReplyMainDao extends JpaRepository<ReplyMain, Long>, JpaSpecificationExecutor<ReplyMain> {
 
-    public List<ReplyMain> findBypPid(Long pid);
+    public List<ReplyMain> findByPid(Long pid);
 }
